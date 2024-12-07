@@ -61,6 +61,36 @@ if (empty($eventsdata)) {
             bottom: 0;
             width: 100%;
         }
+
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .fc-event {
+            border-radius: 5px;
+        }
+
+        .fc-event-title {
+            font-size: 14px;
+        }
+
+        .fc-event-description {
+            display: none;
+        }
+
+        /* Hover effect for event description */
+        .fc-event:hover .fc-event-description {
+            display: block;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
     </style>
 </head>
 <body>
@@ -91,6 +121,7 @@ if (empty($eventsdata)) {
                             event.type === 'deadline' ? '#ffcc00' :
                             event.type === 'competition' ? '#4caf50' :
                             '#2196f3');  // Цвет для разных типов событий
+                element.append('<span class="fc-event-description">' + event.description + '</span>');
             }
         });
     });
