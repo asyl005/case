@@ -1,0 +1,32 @@
+<?php
+// Подключение к базе данных
+include('db.php');
+
+// Получение данных из запроса
+$data = json_decode(file_get_contents('php://input'), true);
+$assignment_id = $data['assignment_id'];
+$status = $data['status'];
+$user_id = 1; // Замените на реальный user_id текущего пользователя
+
+// Проверка правильности статуса
+$valid_statuses = ['not_started', 'in_progress', 'completed'];
+if (!in_array($status, $valid_statuses)) {
+    echo json_encode(['success' => false, 'message' => 'Неверный статус']);
+    exit;
+}
+
+// Обновление статуса задания
+$query = "
+    INSERT INTO user_assignments (user_id, assignment_id, status)
+    VALUES ($user_id, $assignment_id, '$status')
+    ON DUPLICATE KEY UPDATE status = '$status', submitted_at = NOW()";
+    
+if (mysqli_query($conn, $query)) {
+    echo json_encode(['success' => true]);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Ошибка при обновлении статуса']);
+}
+
+// Закрытие подключения к базе данных
+mysqli_close($conn);
+?>

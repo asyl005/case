@@ -1,9 +1,25 @@
+<?php
+// Подключение к базе данных
+include('db.php');
+
+// Получение данных о пользователе (например, из сессии)
+$username = 'Пользователь'; // Пример, замените на реальные данные пользователя
+
+// Получение достижений пользователя
+$query_achievements = "SELECT * FROM gamification_achievements WHERE user_id = 1"; // Замените user_id на текущий
+$achievements_result = mysqli_query($conn, $query_achievements);
+
+// Получение целей пользователя
+$query_goals = "SELECT * FROM gamification_goals WHERE user_id = 1"; // Замените user_id на текущий
+$goals_result = mysqli_query($conn, $query_goals);
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Платформа для студентов</title>
+    <title>Мои достижения</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +43,7 @@
             display: flex;
             flex-direction: column;
             transform: translateX(-250px);
-            transition: transform 0.3s ease-in-out; /* Анимация для бокового меню */
+            transition: transform 0.3s ease-in-out;
         }
 
         .sidebar.open {
@@ -87,7 +103,7 @@
             padding: 20px;
             width: calc(100% - 250px);
             background-color: #f7f7f7;
-            transition: margin-left 0.3s ease-in-out; /* Анимация для контента */
+            transition: margin-left 0.3s ease-in-out;
         }
 
         .header {
@@ -96,18 +112,18 @@
             color: #4c3b6e;
             margin-bottom: 20px;
             display: flex;
-            align-items: center; /* Вертикальное выравнивание иконки и текста */
-            justify-content: space-between; /* Размещение иконки слева, текста справа */
+            align-items: center;
+            justify-content: space-between;
         }
 
         .header .icon {
-            font-size: 28px; /* Размер иконки */
-            cursor: pointer; /* Указатель для кликабельности */
-            margin-right: 10px; /* Отступ между иконкой и текстом */
+            font-size: 28px;
+            cursor: pointer;
+            margin-right: 10px;
         }
 
         .header .text {
-            flex-grow: 1; /* Оставляет пространство для текста */
+            flex-grow: 1;
         }
 
         .section {
@@ -127,6 +143,42 @@
             color: #555;
         }
 
+        .achievement-list, .goal-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .achievement, .goal {
+            background-color: #f4f5fa;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            width: 150px;
+            text-align: center;
+        }
+
+        .achievement img, .goal img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background-color: #ddd;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .progress-bar span {
+            display: block;
+            height: 100%;
+            background-color: #4c3b6e;
+            border-radius: 5px;
+        }
+
         /* Кнопка для открытия меню */
         .open-btn {
             font-size: 28px;
@@ -144,7 +196,6 @@
         .open-btn:hover {
             background-color: #6f57a1;
         }
-
     </style>
 </head>
 <body>
@@ -153,10 +204,10 @@
     <div class="sidebar" id="sidebar">
         <div class="logo">StudyLife+</div>
         <ul class="menu">
-            <li class="active"><a href="#">🏠 Главная</a></li>
-            <li><a href="dost.php">🏆 Мои достижения</a></li>
+            <li><a href="index.php">🏠 Главная</a></li>
+            <li class="active"><a href="#">🏆 Мои достижения</a></li>
             <li><a href="reiting.php">📊 Рейтинги</a></li>
-            <li><a href="task.php">📚 Задания</a></li>
+            <li><a href="#">📚 Задания</a></li>
             <li><a href="#">🎮 Соревнования</a></li>
             <li><a href="#">🤝 Обмен вещами</a></li>
             <li><a href="#">🛠️ Поиск услуг</a></li>
@@ -175,43 +226,36 @@
     <!-- Основной контент -->
     <div class="main-content" id="mainContent">
         <div class="header">
-            <span class="icon" onclick="toggleSidebar()">☰</span> <!-- Иконка для открытия меню -->
+            <span class="icon" onclick="toggleSidebar()">☰</span>
             <div class="text">Добро пожаловать в StudyLife+, <?php echo $username; ?>!</div>
         </div>
 
         <div class="section">
             <h2>Мои достижения</h2>
-            <p>Здесь будут отображаться ваши достижения, значки и трофеи, полученные за выполнение заданий и участие в соревнованиях.</p>
+            <div class="achievement-list">
+                <?php while ($achievement = mysqli_fetch_assoc($achievements_result)) { ?>
+                    <div class="achievement">
+                        <img src="<?php echo $achievement['icon']; ?>" alt="Иконка">
+                        <h3><?php echo $achievement['name']; ?></h3>
+                        <p><?php echo $achievement['description']; ?></p>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
 
         <div class="section">
-            <h2>Рейтинги</h2>
-            <p>Посмотрите, как вы себя сравниваете с другими студентами в различных категориях.</p>
-        </div>
-
-        <div class="section">
-            <h2>Задания</h2>
-            <p>Просмотрите все текущие задания и дедлайны, а также их статус выполнения.</p>
-        </div>
-
-        <div class="section">
-            <h2>Соревнования</h2>
-            <p>Примите участие в различных соревнованиях и челленджах, организованных на платформе.</p>
-        </div>
-
-        <div class="section">
-            <h2>Обмен вещами</h2>
-            <p>Обменивайтесь вещами с другими студентами: книги, техника, спортинвентарь и многое другое.</p>
-        </div>
-
-        <div class="section">
-            <h2>Поиск услуг</h2>
-            <p>Ищите услуги от студентов: репетиторы, фотографы, дизайнеры и другие.</p>
-        </div>
-
-        <div class="section">
-            <h2>Досуг</h2>
-            <p>Организуйте мероприятия с друзьями: киновечера, походы, клубы по интересам и многое другое.</p>
+            <h2>Мои цели</h2>
+            <div class="goal-list">
+                <?php while ($goal = mysqli_fetch_assoc($goals_result)) { ?>
+                    <div class="goal">
+                        <h3><?php echo $goal['name']; ?></h3>
+                        <p>Прогресс: <?php echo $goal['progress']; ?>%</p>
+                        <div class="progress-bar">
+                            <span style="width: <?php echo $goal['progress']; ?>%"></span>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
 
@@ -225,3 +269,8 @@
 
 </body>
 </html>
+
+<?php
+// Закрытие подключения к базе данных
+mysqli_close($conn);
+?>
