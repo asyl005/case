@@ -38,13 +38,16 @@ $items_result = mysqli_query($conn, $query_items);
             position: fixed;
             top: 0;
             left: -250px;
-            transition: left 0.3s ease;
+            opacity: 0;
+            transform: translateX(-250px);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
             padding-top: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar.open {
-            left: 0;
+            transform: translateX(0);
+            opacity: 1;
         }
 
         .logo {
@@ -83,14 +86,14 @@ $items_result = mysqli_query($conn, $query_items);
             flex: 1;
             margin-left: 250px;
             padding: 20px;
-            transition: margin-left 0.3s ease;
+            transition: margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         main.closed {
             margin-left: 0;
         }
 
-        /* Стили для кнопки открытия меню */
+        /* Кнопка открытия меню */
         .open-btn {
             font-size: 28px;
             color: #fff;
@@ -108,7 +111,7 @@ $items_result = mysqli_query($conn, $query_items);
             background-color: #6f57a1;
         }
 
-        /* Стили для заголовка и футера */
+        /* Заголовок и футер */
         header {
             background-color: #4c3b6e;
             color: white;
@@ -145,8 +148,8 @@ $items_result = mysqli_query($conn, $query_items);
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            opacity: 0; /* Начальная прозрачность для анимации */
-            transform: translateY(20px); /* Начальная позиция для анимации */
+            opacity: 0;
+            transform: translateY(20px);
             animation: fadeInUp 0.5s forwards;
         }
 
@@ -183,7 +186,6 @@ $items_result = mysqli_query($conn, $query_items);
             }
         }
 
-        /* Ожидание перед анимацией элементов */
         .item:nth-child(1) {
             animation-delay: 0s;
         }
@@ -203,11 +205,9 @@ $items_result = mysqli_query($conn, $query_items);
         .item:nth-child(5) {
             animation-delay: 0.4s;
         }
-
     </style>
 </head>
 <body>
-
     <!-- Боковое меню -->
     <div class="sidebar" id="sidebar">
         <div class="logo">NSA</div>
@@ -227,9 +227,6 @@ $items_result = mysqli_query($conn, $query_items);
             <li><a href="user_settings.php">⚙️ Настройки</a></li>
             <li><a href="logout2.php">Шығу</a></li>
         </ul>
-        <div class="footer">
-            &copy; 2024 StudyLife+
-        </div>
     </div>
 
     <!-- Основной контент -->
@@ -275,7 +272,6 @@ $items_result = mysqli_query($conn, $query_items);
             mainContent.classList.toggle("closed");
         }
     </script>
-
 </body>
 </html>
 
