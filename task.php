@@ -1,24 +1,15 @@
 <?php
 // Подключение к базе данных
-include('db.php');
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gamification";
 
-// Получаем текущего пользователя (например, из сессии)
-$username = 'Пользователь'; // Пример, замените на реальные данные пользователя
-$user_id = 1; // Замените на реальный user_id текущего пользователя
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Получаем все задания
-$query_assignments = "SELECT * FROM assignments ORDER BY deadline ASC";
-$assignments_result = mysqli_query($conn, $query_assignments);
-
-// Получаем статусы заданий текущего пользователя
-$query_user_assignments = "
-    SELECT ua.assignment_id, ua.status 
-    FROM user_assignments ua 
-    WHERE ua.user_id = $user_id";
-$user_assignments_result = mysqli_query($conn, $query_user_assignments);
-$user_assignments = [];
-while ($row = mysqli_fetch_assoc($user_assignments_result)) {
-    $user_assignments[$row['assignment_id']] = $row['status'];
+// Проверка подключения
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Получаем список достижений
@@ -28,6 +19,7 @@ $result_achievements = $conn->query($sql_achievements);
 // Получаем список целей
 $sql_goals = "SELECT * FROM goals_dost";
 $result_goals = $conn->query($sql_goals);
+
 ?>
 
 <!DOCTYPE html>
@@ -35,104 +27,21 @@ $result_goals = $conn->query($sql_goals);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои достижения и задания</title>
+    <title>Мои достижения</title>
     <style>
         /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f7f7f7;
-            padding: 20px;
-            margin-left: 270px; /* Ширина меню */
-            transition: margin-left 0.5s;
-        }
-
-        h1 {
-            text-align: center;
-            color: #4c3b6e;
-        }
-
-        .assignment-list, .achievement-list {
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .assignment-list h2, .achievement-list h2 {
-            color: #4c3b6e;
-            margin-bottom: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f4f5fa;
-            color: #4c3b6e;
-        }
-
-        .status {
-            padding: 5px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .not_started {
-            background-color: #ffeb3b;
-        }
-
-        .in_progress {
-            background-color: #2196f3;
-            color: #fff;
-        }
-
-        .completed {
-            background-color: #4caf50;
-            color: #fff;
-        }
-
-        .submit-btn {
-            padding: 8px 15px;
-            background-color: #4c3b6e;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            background-color: #6f57a1;
-        }
-
-        .achievement, .goal {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            margin: 5px 0;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .achievement h3, .goal h3 {
-            font-size: 18px;
-            color: #4c3b6e;
-            margin-bottom: 5px;
-        }
-
-        .achievement p, .goal p {
-            color: #555;
-            margin-top: 5px;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
         }
 
         /* Боковое меню */
@@ -142,8 +51,8 @@ $result_goals = $conn->query($sql_goals);
             background-color: #ffffff;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             position: fixed;
-            display: flex;
-            flex-direction: column;
+            top: 0;
+            left: 0;
             transform: translateX(-250px);
             opacity: 0;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
@@ -154,11 +63,19 @@ $result_goals = $conn->query($sql_goals);
             opacity: 1;
         }
 
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4c3b6e;
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
         .menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            flex-grow: 1;
         }
 
         .menu li {
@@ -185,6 +102,91 @@ $result_goals = $conn->query($sql_goals);
             color: white;
         }
 
+        /* Основной контент */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            background-color: #f7f7f7;
+            transition: margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-content.closed {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4c3b6e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .icon {
+            font-size: 28px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #4c3b6e;
+            margin-bottom: 10px;
+        }
+
+        .achievement, .goal {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .achievement:hover, .goal:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .achievement h3, .goal h3 {
+            font-size: 18px;
+            color: #4c3b6e;
+            margin-bottom: 5px;
+        }
+
+        .achievement p, .goal p {
+            color: #555;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #4c3b6e;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Кнопка для открытия меню */
         .open-btn {
             font-size: 28px;
             color: #fff;
@@ -205,7 +207,7 @@ $result_goals = $conn->query($sql_goals);
 </head>
 <body>
 
- <!-- Боковое меню -->
+    <!-- Боковое меню -->
     <div class="sidebar" id="sidebar">
         <div class="logo">NSA</div>
         <ul class="menu">
@@ -233,86 +235,70 @@ $result_goals = $conn->query($sql_goals);
     <div class="main-content closed" id="mainContent">
         <div class="header">
             <span class="icon" onclick="toggleSidebar()">☰</span>
-            <div>Задания</div>
+            <div>Мои достижения</div>
         </div>
 
-<!-- Секция для заданий -->
-<div class="assignment-list">
-    <h2>Все задания</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Название задания</th>
-                <th>Описание</th>
-                <th>Баллы</th>
-                <th>Дедлайн</th>
-                <th>Статус</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($assignment = mysqli_fetch_assoc($assignments_result)) { 
-                $status = isset($user_assignments[$assignment['id']]) ? $user_assignments[$assignment['id']] : 'not_started';
-                ?>
-                <tr>
-                    <td><?php echo $assignment['title']; ?></td>
-                    <td><?php echo $assignment['description']; ?></td>
-                    <td><?php echo $assignment['points']; ?></td>
-                    <td><?php echo date('d.m.Y H:i', strtotime($assignment['deadline'])); ?></td>
-                    <td>
-                        <span class="status <?php echo $status; ?>">
-                            <?php 
-                                echo ucfirst(str_replace('_', ' ', $status)); 
-                            ?>
-                        </span>
-                    </td>
-                    <td>
-                        <?php if ($status == 'not_started') { ?>
-                            <button class="submit-btn" onclick="updateStatus(<?php echo $assignment['id']; ?>, 'in_progress')">Начать</button>
-                        <?php } elseif ($status == 'in_progress') { ?>
-                            <button class="submit-btn" onclick="updateStatus(<?php echo $assignment['id']; ?>, 'completed')">Завершить</button>
-                        <?php } ?>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-</div>
+        <!-- Секция для достижений -->
+        <section>
+            <h2>Значки, трофеи и сертификаты</h2>
+            <div class="achievements">
+                <?php if ($result_achievements->num_rows > 0): ?>
+                    <?php while($row = $result_achievements->fetch_assoc()): ?>
+                        <div class="achievement">
+                            <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($row['description']); ?></p>
+                            <p>Тип: <?php echo ucfirst($row['type']); ?></p>
+                            <?php if ($row['type'] == 'badge'): ?>
+                                <div class="badge-progress">
+                                    Прогресс: <?php echo $row['progress']; ?>%
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>Нет достижений.</p>
+                <?php endif; ?>
+            </div>
+        </section>
 
-<script>
-// Функция для обновления статуса задания
-function updateStatus(assignment_id, status) {
-    fetch('update_status.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            assignment_id: assignment_id,
-            status: status
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
-        } else {
-            alert('Ошибка при обновлении статуса');
+        <!-- Секция для целей -->
+        <section>
+            <h2>Мои цели</h2>
+            <div class="goals">
+                <?php if ($result_goals->num_rows > 0): ?>
+                    <?php while($row = $result_goals->fetch_assoc()): ?>
+                        <div class="goal">
+                            <h3><?php echo htmlspecialchars($row['goal_title']); ?></h3>
+                            <p><?php echo htmlspecialchars($row['goal_description']); ?></p>
+                            <p>Цель: <?php echo $row['target_value']; ?></p>
+                            <div class="goal-progress">
+                                Прогресс: <?php echo $row['current_value']; ?> / <?php echo $row['target_value']; ?> (<?php echo round(($row['current_value'] / $row['target_value']) * 100); ?>%)
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>Нет целей.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Функция для переключения бокового меню
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+
+            sidebar.classList.toggle("open");
+            mainContent.classList.toggle("closed");
         }
-    });
-}
-
-// Функция для переключения бокового меню
-function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("open");
-}
-</script>
+    </script>
 
 </body>
 </html>
 
 <?php
-// Закрытие подключения к базе данных
-mysqli_close($conn);
-?>  
+// Закрытие подключения
+$conn->close();
+?>
