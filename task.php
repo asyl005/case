@@ -266,4 +266,70 @@ $result_goals = $conn->query($sql_goals);
                 <th>Статус</th>
                 <th>Действия</th>
             </tr>
-    
+        </thead>
+        <tbody>
+            <?php while ($assignment = mysqli_fetch_assoc($assignments_result)) { 
+                $status = isset($user_assignments[$assignment['id']]) ? $user_assignments[$assignment['id']] : 'not_started';
+                ?>
+                <tr>
+                    <td><?php echo $assignment['title']; ?></td>
+                    <td><?php echo $assignment['description']; ?></td>
+                    <td><?php echo $assignment['points']; ?></td>
+                    <td><?php echo date('d.m.Y H:i', strtotime($assignment['deadline'])); ?></td>
+                    <td>
+                        <span class="status <?php echo $status; ?>">
+                            <?php 
+                                echo ucfirst(str_replace('_', ' ', $status)); 
+                            ?>
+                        </span>
+                    </td>
+                    <td>
+                        <?php if ($status == 'not_started') { ?>
+                            <button class="submit-btn" onclick="updateStatus(<?php echo $assignment['id']; ?>, 'in_progress')">Начать</button>
+                        <?php } elseif ($status == 'in_progress') { ?>
+                            <button class="submit-btn" onclick="updateStatus(<?php echo $assignment['id']; ?>, 'completed')">Завершить</button>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<script>
+// Функция для обновления статуса задания
+function updateStatus(assignment_id, status) {
+    fetch('update_status.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            assignment_id: assignment_id,
+            status: status
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Ошибка при обновлении статуса');
+        }
+    });
+}
+
+// Функция для переключения бокового меню
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("open");
+}
+</script>
+
+</body>
+</html>
+
+<?php
+// Закрытие подключения к базе данных
+mysqli_close($conn);
+?>  
