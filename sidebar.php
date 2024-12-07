@@ -95,10 +95,13 @@
     }
 </style>
 
-<script>
-    // Функция для переключения бокового меню
-    function toggleSidebar() {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("open");
-    }
-</script>
+    <script>
+        // Функция для переключения бокового меню
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+
+            sidebar.classList.toggle("open");
+            mainContent.classList.toggle("closed");
+        }
+    </script>
