@@ -1,6 +1,16 @@
 <?php
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$dbname = 'gamification';
+
 // Подключение к базе данных
-include('db.php');
+$conn = new mysqli($host, $user, $password, $dbname);
+
+// Проверка подключения
+if ($conn->connect_error) {
+    die("Ошибка подключения: " . $conn->connect_error);
+}
 
 // Получаем все события
 $query_eventsdata = "SELECT * FROM eventsdata ORDER BY event_date ASC";
@@ -60,6 +70,13 @@ if (empty($eventsdata)) {
             position: fixed;
             bottom: 0;
             width: 100%;
+        }
+
+        #calendar {
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
