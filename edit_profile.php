@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_username = $_POST['new_username'];
     $new_password = md5($_POST['new_password']);
     $profile_picture = $_FILES['profile_picture'];
-    $new_about = $_POST['new_about']; // Новое описание (About)
 
     // Обработка загрузки фото профиля
     if ($profile_picture['error'] === 0) {
@@ -33,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Обновляем данные пользователя
-    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password', about = '$new_about' WHERE id = $user_id";
+    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password' WHERE id = $user_id";
     $conn->query($update_user_query);
 
     // Обновляем фотографию профиля
@@ -192,10 +191,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="profile_picture">Фото профиля</label>
                 <input type="file" name="profile_picture" id="profile_picture" accept="image/*">
-
-                <!-- Добавляем поле для редактирования описания -->
-                <label for="new_about">О себе</label>
-                <textarea name="new_about" id="new_about" rows="4" placeholder="Расскажите о себе..."><?php echo htmlspecialchars($user['about']); ?></textarea>
 
                 <button type="submit" class="btn-submit">Сохранить изменения</button>
             </form>
