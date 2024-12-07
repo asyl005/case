@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="new_about">О пользователе</label>
                 <textarea name="new_about" id="new_about" rows="4"><?php echo htmlspecialchars($user['about']); ?></textarea>
 
-                <button type="submit" class="btn-submit">Сохранить изменения</button>
+                <button type="submit" class="btn-submit" onclick="window.location.href='profile.php'>Сохранить изменения</button>
             </form>
         </div>
     </div>
