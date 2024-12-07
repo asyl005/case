@@ -196,7 +196,6 @@
         </div>
 
         <div class="profile-actions">
-            <button class="follow-btn">Follow</button>
             <a href="edit_profile.php"><button class="view-btn">Редактировать профиль</button></a>
         </div>
     </div>
