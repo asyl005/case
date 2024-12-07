@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_username = $_POST['new_username'];
     $new_password = md5($_POST['new_password']);
     $profile_picture = $_FILES['profile_picture'];
+    $new_about = $_POST['new_about']; // Получаем новый текст "О пользователе"
 
     // Обработка загрузки фото профиля
     if ($profile_picture['error'] === 0) {
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Обновляем данные пользователя
-    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password' WHERE id = $user_id";
+    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password', about = '$new_about' WHERE id = $user_id";
     $conn->query($update_user_query);
 
     // Обновляем фотографию профиля
@@ -123,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #555;
         }
 
-        .profile-form input {
+        .profile-form input, .profile-form textarea {
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
@@ -133,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transition: border-color 0.3s ease;
         }
 
-        .profile-form input:focus {
+        .profile-form input:focus, .profile-form textarea:focus {
             border-color: #4c3b6e;
             outline: none;
         }
@@ -182,6 +183,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="profile_picture">Фото профиля</label>
                 <input type="file" name="profile_picture" id="profile_picture" accept="image/*">
+
+                <label for="new_about">О пользователе</label>
+                <textarea name="new_about" id="new_about" rows="4"><?php echo htmlspecialchars($user['about']); ?></textarea>
 
                 <button type="submit" class="btn-submit">Сохранить изменения</button>
             </form>
