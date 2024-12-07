@@ -28,6 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "Ошибка регистрации! Попробуйте снова.";
         }
     }
+// Добавление достижения "Зарегистрирован"
+$achievement_query = "SELECT * FROM achievements WHERE name = 'Зарегистрирован'";
+$achievement_result = $conn->query($achievement_query);
+$achievement = $achievement_result->fetch_assoc();
+
+$query = "INSERT INTO user_achievements (user_id, achievement_id) VALUES ($user_id, " . $achievement['id'] . ")";
+$conn->query($query);
+
 }
 ?>
 

@@ -27,5 +27,20 @@ $result = $conn->query($query);
         </tr>
         <?php endwhile; ?>
     </table>
+    <button id="refreshLeaderboard">Обновить рейтинг</button>
+<div id="leaderboardTable">
+    <!-- Таблица будет загружаться через AJAX -->
+</div>
+
+<script>
+document.getElementById('refreshLeaderboard').addEventListener('click', function() {
+    fetch('leaderboard_data.php')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('leaderboardTable').innerHTML = data;
+        });
+});
+</script>
+
 </body>
 </html>
