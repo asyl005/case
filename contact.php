@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamified Learning System</title>
+    <title>Contact Us - Networked Student Access</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,43 +33,51 @@
         header nav a:hover {
             color: #ffffff;
         }
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+        .contact-section {
             padding: 50px;
             background: linear-gradient(135deg, #5c4a8e, #302347);
             color: white;
+            text-align: center;
         }
-        .hero .content {
-            max-width: 500px;
-        }
-        .hero h1 {
+        .contact-section h1 {
             font-size: 48px;
             margin-bottom: 20px;
         }
-        .hero p {
+        .contact-section p {
             font-size: 18px;
             line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
         }
-        .hero .cta {
-            margin-top: 20px;
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #3a2c59;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        .hero .cta a {
-            text-decoration: none;
-            padding: 10px 20px;
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .contact-form button {
             background-color: #6f57a1;
             color: white;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
+            cursor: pointer;
         }
-        .hero .cta a:hover {
+        .contact-form button:hover {
             background-color: #543c80;
-        }
-        .hero img {
-            max-width: 400px;
-            border-radius: 15px;
         }
     </style>
 </head>
@@ -84,15 +92,20 @@
         </nav>
     </header>
 
-    <div class="hero">
-        <div class="content">
-            <h1>Networked Student Access</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="cta">
-                <a href="#get-started">Get started!</a>
-            </div>
+    <div class="contact-section">
+        <h1>Contact Us</h1>
+        <p>
+            Have questions or feedback? Reach out to us! We'd love to hear from you and will get back to you as soon as possible.
+        </p>
+
+        <div class="contact-form">
+            <form action="send_message.php" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </div>
-        <img src="https://via.placeholder.com/400x300" alt="Gamified Learning Illustration">
     </div>
 </body>
 </html>
