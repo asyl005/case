@@ -229,10 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="profile-about">
             <h2>О пользователе</h2>
-            <form method="POST">
-                <textarea name="new_about" id="new_about" rows="4"><?php echo htmlspecialchars($user['about']); ?></textarea>
-                <button type="submit" class="btn-submit">Сохранить изменения</button>
-            </form>
+            <p><?php echo htmlspecialchars($user['about']); ?></p>
         </div>
 
         <div class="profile-actions">
