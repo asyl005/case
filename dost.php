@@ -28,11 +28,75 @@ $result_goals = $conn->query($sql_goals);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мои достижения</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Стили для страницы -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4c3b6e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4c3b6e;
+            margin-bottom: 10px;
+        }
+
+        .achievement, .goal {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement h3, .goal h3 {
+            font-size: 18px;
+            color: #4c3b6e;
+            margin-bottom: 5px;
+        }
+
+        .achievement p, .goal p {
+            color: #555;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #4c3b6e;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
+
+<header>
     <h1>Мои достижения</h1>
-    
+</header>
+
+<main>
     <!-- Секция для достижений -->
     <section>
         <h2>Значки, трофеи и сертификаты</h2>
@@ -76,9 +140,12 @@ $result_goals = $conn->query($sql_goals);
             <?php endif; ?>
         </div>
     </section>
+</main>
 
-    <!-- Подключение скриптов -->
-    <script src="script.js"></script>
+<footer>
+    <p>&copy; 2024 Мои достижения, Все права защищены</p>
+</footer>
+
 </body>
 </html>
 
