@@ -191,10 +191,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
             <script>
-                function redirectToProfile() 
+                function redirectToProfile() {
                     window.location.href = 'profile.php';
                 }
-</script>
+            </script>
         </div>
     </div>
 
