@@ -293,23 +293,13 @@ $futureCompetitions = [
     </footer>
 
     <script>
-        // Функция для переключения бокового меню
         function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const mainContent = document.getElementById("mainContent");
-
-            sidebar.classList.toggle("open");
-            mainContent.classList.toggle("closed");
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            sidebar.classList.toggle('open');
+            mainContent.classList.toggle('closed');
         }
-
-        // Добавление анимации после загрузки страницы
-        document.addEventListener("DOMContentLoaded", () => {
-            const sections = document.querySelectorAll('section');
-            const listItems = document.querySelectorAll('li');
-
-            sections.forEach(section => section.classList.add('visible'));
-            listItems.forEach(item => item.classList.add('visible'));
-        });
     </script>
+
 </body>
 </html>
