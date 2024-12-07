@@ -179,7 +179,7 @@
     <div class="main-content closed" id="mainContent">
         <div class="header">
             <span class="icon" onclick="toggleSidebar()">☰</span>
-            <div class="text">Добро пожаловать в NSA <?php echo $username; ?>!</div>
+            <div class="text">Добро пожаловать в NSA <?php echo $user; ?>!</div>
         </div>
 
         <div class="section">
