@@ -166,7 +166,7 @@
             <li><a href="sob.php">💬 Сообщество</a></li>
             <li><a href="data.php">🗓 Календарь</a></li>
             <li><a href="goals.php">🎯 Мои цели</a></li>
-            <li><a href="edit_profile.php">👤 Профиль</a></li>
+            <li><a href="profile.php">👤 Профиль</a></li>
             <li><a href="user_settings.php">⚙️ Настройки</a></li>
             <li><a href="logout2.php">Шығу</a></li>
         </ul>
