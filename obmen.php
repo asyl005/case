@@ -227,6 +227,9 @@ $items_result = mysqli_query($conn, $query_items);
             <li><a href="user_settings.php">⚙️ Настройки</a></li>
             <li><a href="logout2.php">Шығу</a></li>
         </ul>
+        <div class="footer">
+            &copy; 2024 StudyLife+
+        </div>
     </div>
 
     <!-- Основной контент -->
@@ -272,6 +275,7 @@ $items_result = mysqli_query($conn, $query_items);
             mainContent.classList.toggle("closed");
         }
     </script>
+
 </body>
 </html>
 
