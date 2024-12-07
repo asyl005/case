@@ -145,6 +145,9 @@ $items_result = mysqli_query($conn, $query_items);
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* Начальная прозрачность для анимации */
+            transform: translateY(20px); /* Начальная позиция для анимации */
+            animation: fadeInUp 0.5s forwards;
         }
 
         .item strong {
@@ -171,6 +174,53 @@ $items_result = mysqli_query($conn, $query_items);
         .add-item-btn:hover {
             background-color: #6f57a1;
         }
+
+        /* Анимация появления элементов */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Стили для плавного открытия и закрытия меню */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #4c3b6e;
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        /* Ожидание перед анимацией элементов */
+        .item:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .item:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .item:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        /* ... И так далее для всех элементов */
     </style>
 </head>
 <body>
