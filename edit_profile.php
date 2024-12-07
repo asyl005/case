@@ -191,10 +191,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
             <script>
-                function redirectToProfile() {
-                    window.location.href = 'profile.php';
-                }
-            </script>
+    // Слушаем событие отправки формы
+                document.getElementById('profileForm').addEventListener('submit', function(e) {
+                    e.preventDefault();  // Отменяем стандартное поведение формы (отправку на сервер)
+        
+        // Отправка формы через AJAX (если нужно)
+                    var formData = new FormData(this);
+        
+        // Вы можете использовать fetch или XMLHttpRequest для отправки данных
+                    fetch('edit_profile.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                // После успешной отправки данных, редиректим на страницу профиля
+                            window.location.href = 'profile.php';
+                        } else {
+                            alert('Ошибка при сохранении данных');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                    });
+                });
+</script>
         </div>
     </div>
 
