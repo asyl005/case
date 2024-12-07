@@ -7,13 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <?php
+    // Подключение к базе данных
+    include 'db.php';
+    
+    // Получаем ID пользователя из сессии
+    session_start();
+    $user_id = $_SESSION['user_id']; // Это ID текущего пользователя
+    
+    // Получаем данные пользователя из базы данных
+    $query = "SELECT * FROM users WHERE id = $user_id";
+    $result = $conn->query($query);
+    $user = $result->fetch_assoc();
+    
+    // Если пользователь не найден, выводим ошибку
+    if (!$user) {
+        echo "Пользователь не найден.";
+        exit;
+    }
+    ?>
+
     <div class="profile-container">
         <div class="profile-header">
             <div class="profile-image">
-                <img src="profile-pic.jpg" alt="Adele" />
+                <!-- Используем путь к изображению из базы данных, если оно существует -->
+                <img src="<?php echo $user['profile_picture'] ? $user['profile_picture'] : 'uploads/default.png'; ?>" alt="Profile Picture" />
             </div>
             <div class="profile-info">
-                <h1>Adele Laurie Blue Adkins</h1>
+                <h1><?php echo htmlspecialchars($user['username']); ?></h1>
                 <p>Autrice - Compositrice & Interprète</p>
                 <div class="social-media">
                     <a href="#">Twitter</a>
@@ -32,14 +53,13 @@
 
         <div class="profile-about">
             <h2>About</h2>
-            <p>Adele (born 5 May 1988) is an English singer-songwriter. After graduating from the BRIT School for Performing Arts and Technology in 2006, Adele was given a recording contract by XL Recordings after a friend posted her demo on Myspace the same year...</p>
+            <p>Adele (born 5 May 1988) is an English singer-songwriter...</p>
         </div>
 
         <div class="profile-actions">
             <button class="follow-btn">Follow</button>
-            <a href="edit_profile.php"><button class="view-btn">View More</button></a>
+            <a href="edit_profile.php"><button class="view-btn">Edit Profile</button></a>
         </div>
     </div>
 </body>
 </html>
-
