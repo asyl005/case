@@ -1,3 +1,51 @@
+<?php
+session_start();
+include 'db.php';
+
+// Get the user ID from session
+$user_id = $_SESSION['user_id']; // This is the current user's ID
+
+// Get user data from the database
+$query = "SELECT * FROM users WHERE id = $user_id";
+$result = $conn->query($query);
+$user = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $new_username = $_POST['new_username'];
+    $new_password = md5($_POST['new_password']);
+    $profile_picture = $_FILES['profile_picture'];
+    $new_about = $_POST['new_about'];  // Get the updated "About" content
+
+    // Handle profile picture upload
+    if ($profile_picture['error'] === 0) {
+        $target_dir = "uploads/";
+        $filename = basename($profile_picture["name"]);
+        $filename = preg_replace("/[^a-zA-Z0-9.]/", "_", $filename); // Sanitize file name
+        $target_file = $target_dir . $filename;
+
+        if (move_uploaded_file($profile_picture["tmp_name"], $target_file)) {
+            $profile_picture_path = $target_file;
+        } else {
+            $profile_picture_path = 'uploads/default.png'; // Default image if upload failed
+        }
+    } else {
+        $profile_picture_path = $user['profile_picture']; // Retain current picture if new one isn't selected
+    }
+
+    // Update user data
+    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password', about = '$new_about' WHERE id = $user_id";
+    $conn->query($update_user_query);
+
+    // Update profile picture
+    $update_profile_query = "UPDATE users SET profile_picture = '$profile_picture_path' WHERE id = $user_id";
+    $conn->query($update_profile_query);
+
+    // Redirect to profile page after submission
+    header("Location: profile.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -82,15 +130,15 @@
 
         .profile-image {
             position: relative;
-            margin-bottom: 20px; /* Добавлено место сверху */
+            margin-bottom: 20px;
         }
 
         .profile-image img {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            object-fit: cover; /* Сохраняет пропорции изображения, обрезая его, если необходимо */
-            border: 5px solid #fff; /* Белая рамка вокруг фото */
+            object-fit: cover;
+            border: 5px solid #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -139,58 +187,18 @@
         .profile-actions button:hover {
             opacity: 0.8;
         }
+        
+        .profile-about textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
-<?php
-session_start();
-include 'db.php';
-
-// Get the user ID from session
-$user_id = $_SESSION['user_id']; // This is the current user's ID
-
-// Get user data from the database
-$query = "SELECT * FROM users WHERE id = $user_id";
-$result = $conn->query($query);
-$user = $result->fetch_assoc();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $new_username = $_POST['new_username'];
-    $new_password = md5($_POST['new_password']);
-    $profile_picture = $_FILES['profile_picture'];
-
-    // Handle profile picture upload
-    if ($profile_picture['error'] === 0) {
-        $target_dir = "uploads/";
-        $filename = basename($profile_picture["name"]);
-        $filename = preg_replace("/[^a-zA-Z0-9.]/", "_", $filename); // Sanitize file name
-        $target_file = $target_dir . $filename;
-
-        if (move_uploaded_file($profile_picture["tmp_name"], $target_file)) {
-            $profile_picture_path = $target_file;
-        } else {
-            $profile_picture_path = 'uploads/default.png'; // Default image if upload failed
-        }
-    } else {
-        $profile_picture_path = $user['profile_picture']; // Retain current picture if new one isn't selected
-    }
-
-    // Update user data
-    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password' WHERE id = $user_id";
-    $conn->query($update_user_query);
-
-    // Update profile picture
-    $update_profile_query = "UPDATE users SET profile_picture = '$profile_picture_path' WHERE id = $user_id";
-    $conn->query($update_profile_query);
-
-    // Redirect to profile page after submission
-    header("Location: profile.php");
-    exit;
-}
-?>
-
-
-
     <div class="profile-container">
         <header>
             <h1>Профиль пользователя</h1>
@@ -198,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="profile-header">
             <div class="profile-image">
-                <!-- Используем путь к изображению из базы данных, если оно существует -->
+                <!-- Display user's profile image -->
                 <img src="<?php echo $user['profile_picture'] ? $user['profile_picture'] : 'uploads/default.png'; ?>" alt="Profile Picture" />
             </div>
             <div class="profile-info">
@@ -221,7 +229,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="profile-about">
             <h2>О пользователе</h2>
-            <p>Adele (родилась 5 мая 1988 года) — английская певица и автор песен...</p>
+            <form method="POST">
+                <textarea name="new_about" id="new_about" rows="4"><?php echo htmlspecialchars($user['about']); ?></textarea>
+                <button type="submit" class="btn-submit">Сохранить изменения</button>
+            </form>
         </div>
 
         <div class="profile-actions">
