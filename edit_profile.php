@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <style>
-        * {
+         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -152,6 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .btn-submit:hover {
             background-color: #0056b3;
         }
+        
         .profile-image img {
             width: 300px;
             height: 300px;
@@ -160,6 +161,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 10px; /* Округляем углы */
             margin-bottom: 20px;
         }
+
+        /* Стили для текста о пользователе */
         .profile-about textarea {
             width: 100%;
             padding: 10px;
