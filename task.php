@@ -205,53 +205,36 @@ $result_goals = $conn->query($sql_goals);
 </head>
 <body>
 
-<!-- Боковое меню -->
-<div class="sidebar" id="sidebar">
-    <div class="logo">NSA</div>
-    <ul class="menu">
-        <li class="active"><a href="#">🏠 Главная</a></li>
-        <li><a href="dost.php">🏆 Мои достижения</a></li>
-        <li><a href="reiting.php">📊 Рейтинги</a></li>
-        <li><a href="task.php">📚 Задания</a></li>
-        <li><a href="game.php">🎮 Соревнования</a></li>
-        <li><a href="obmen.php">🤝 Обмен вещами</a></li>
-        <li><a href="uslug.php">🛠️ Поиск услуг</a></li>
-        <li><a href="dosug.php">🎉 Досуг</a></li>
-        <li><a href="sob.php">💬 Сообщество</a></li>
-        <li><a href="data.php">🗓 Календарь</a></li>
-        <li><a href="goals.php">🎯 Мои цели</a></li>
-        <li><a href="profile.php">👤 Профиль</a></li>
-        <li><a href="user_settings.php">⚙️ Настройки</a></li>
-        <li><a href="logout2.php">Шығу</a></li>
-    </ul>
-    <div class="footer">
-        &copy; 2024 StudyLife+
+ <!-- Боковое меню -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">NSA</div>
+        <ul class="menu">
+            <li><a href="#">🏠 Главная</a></li>
+            <li><a href="dost.php">🏆 Мои достижения</a></li>
+            <li><a href="reiting.php">📊 Рейтинги</a></li>
+            <li><a href="task.php">📚 Задания</a></li>
+            <li><a href="game.php">🎮 Соревнования</a></li>
+            <li><a href="obmen.php">🤝 Обмен вещами</a></li>
+            <li><a href="uslug.php">🛠️ Поиск услуг</a></li>
+            <li><a href="dosug.php">🎉 Досуг</a></li>
+            <li><a href="sob.php">💬 Сообщество</a></li>
+            <li><a href="data.php">🗓 Календарь</a></li>
+            <li><a href="goals.php">🎯 Мои цели</a></li>
+            <li><a href="profile.php">👤 Профиль</a></li>
+            <li><a href="user_settings.php">⚙️ Настройки</a></li>
+            <li><a href="logout2.php">Шығу</a></li>
+        </ul>
+        <div class="footer">
+            &copy; 2024 StudyLife+
+        </div>
     </div>
-</div>
 
-<!-- Кнопка для открытия меню -->
-<button class="open-btn" onclick="toggleSidebar()">☰</button>
-
-<!-- Секция для достижений -->
-<div class="achievement-list">
-    <h2>Значки, трофеи и сертификаты</h2>
-    <?php if ($result_achievements->num_rows > 0): ?>
-        <?php while($row = $result_achievements->fetch_assoc()): ?>
-            <div class="achievement">
-                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-                <p><?php echo htmlspecialchars($row['description']); ?></p>
-                <p>Тип: <?php echo ucfirst($row['type']); ?></p>
-                <?php if ($row['type'] == 'badge'): ?>
-                    <div class="badge-progress">
-                        Прогресс: <?php echo $row['progress']; ?>%
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <p>Нет достижений.</p>
-    <?php endif; ?>
-</div>
+    <!-- Основной контент -->
+    <div class="main-content closed" id="mainContent">
+        <div class="header">
+            <span class="icon" onclick="toggleSidebar()">☰</span>
+            <div>Задания</div>
+        </div>
 
 <!-- Секция для заданий -->
 <div class="assignment-list">
