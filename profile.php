@@ -1,10 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Профиль пользователя</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4c3b6e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4c3b6e;
+            margin-bottom: 10px;
+        }
+
+        .achievement, .goal {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement h3, .goal h3 {
+            font-size: 18px;
+            color: #4c3b6e;
+            margin-bottom: 5px;
+        }
+
+        .achievement p, .goal p {
+            color: #555;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #4c3b6e;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .profile-container {
+            margin: 20px auto;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .profile-info h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #4c3b6e;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            color: #777;
+        }
+
+        .social-media a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #4c3b6e;
+        }
+
+        .profile-stats p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .profile-about h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #4c3b6e;
+        }
+
+        .profile-actions button {
+            background-color: #4c3b6e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .profile-actions .follow-btn {
+            background-color: #6f57a1;
+        }
+
+        .profile-actions button:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -28,6 +155,10 @@
     ?>
 
     <div class="profile-container">
+        <header>
+            <h1>Профиль пользователя</h1>
+        </header>
+
         <div class="profile-header">
             <div class="profile-image">
                 <!-- Используем путь к изображению из базы данных, если оно существует -->
@@ -52,14 +183,18 @@
         </div>
 
         <div class="profile-about">
-            <h2>About</h2>
-            <p>Adele (born 5 May 1988) is an English singer-songwriter...</p>
+            <h2>О пользователе</h2>
+            <p>Adele (родилась 5 мая 1988 года) — английская певица и автор песен...</p>
         </div>
 
         <div class="profile-actions">
             <button class="follow-btn">Follow</button>
-            <a href="edit_profile.php"><button class="view-btn">Edit Profile</button></a>
+            <a href="edit_profile.php"><button class="view-btn">Редактировать профиль</button></a>
         </div>
     </div>
+
+    <footer>
+        &copy; 2024 StudyLife+
+    </footer>
 </body>
 </html>
