@@ -23,19 +23,119 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Вход</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Networked Student Access</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #4c3b6e;
+            color: #ffffff;
+        }
+        header {
+            background-color: #3a2c59;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+        header nav a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+        header nav a:hover {
+            color: #ffffff;
+        }
+        .login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+        }
+        .login-form {
+            background-color: #3a2c59;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+        }
+        .login-form h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6f57a1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #543c80;
+        }
+        .login-form p {
+            margin-top: 15px;
+        }
+        .login-form a {
+            color: #6f57a1;
+            text-decoration: none;
+        }
+        .login-form a:hover {
+            color: #543c80;
+        }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Вход</h1>
-    <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
-    
-    <form method="POST">
-        <input type="text" name="username" placeholder="Имя пользователя" required>
-        <input type="password" name="password" placeholder="Пароль" required>
-        <button type="submit">Войти</button>
-    </form>
-    <p>Нет аккаунта? <a href="register.php">Зарегистрироваться</a></p>
+    <header>
+        <div class="logo">NSA</div>
+        <nav>
+            <a href="about.php">About</a>
+            <a href="contact.php">Contact</a>
+            <a href="login.php">Log in</a>
+            <a href="register.php">Sign up</a>
+        </nav>
+    </header>
+
+    <div class="login-section">
+        <div class="login-form">
+            <h1>Log In</h1>
+            <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
+            <form method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="register.php">Sign up</a></p>
+        </div>
+    </div>
 </body>
 </html>

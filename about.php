@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamified Learning System</title>
+    <title>About Us - Gamified Learning System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,66 +33,51 @@
         header nav a:hover {
             color: #ffffff;
         }
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+        .about-section {
             padding: 50px;
             background: linear-gradient(135deg, #5c4a8e, #302347);
             color: white;
+            text-align: center;
         }
-        .hero .content {
-            max-width: 500px;
-        }
-        .hero h1 {
+        .about-section h1 {
             font-size: 48px;
             margin-bottom: 20px;
         }
-        .hero p {
+        .about-section p {
             font-size: 18px;
             line-height: 1.6;
-        }
-        .hero .cta {
-            margin-top: 20px;
-        }
-        .hero .cta a {
-            text-decoration: none;
-            padding: 10px 20px;
-            background-color: #6f57a1;
-            color: white;
-            border-radius: 5px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .hero .cta a:hover {
-            background-color: #543c80;
-        }
-        .hero img {
-            max-width: 400px;
-            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
+    <?php
+    // Вывод шапки сайта
+    echo '
     <header>
         <div class="logo">NSA</div>
         <nav>
+            <a href="main.php">Home</a>
             <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
+            <a href="#contact">Contact</a>
             <a href="login.php">Log in</a>
             <a href="register.php">Sign up</a>
         </nav>
-    </header>
+    </header>';
+    ?>
 
-    <div class="hero">
-        <div class="content">
-            <h1>Networked Student Access</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="cta">
-                <a href="#get-started">Get started!</a>
-            </div>
-        </div>
-        <img src="https://via.placeholder.com/400x300" alt="Gamified Learning Illustration">
+    <div class="about-section">
+        <h1>About Us</h1>
+        <p>
+            Welcome to the **Gamified Learning System**! Our mission is to transform the way you learn by integrating 
+            engaging game mechanics into educational processes. Whether you're a student or a teacher, we aim to make 
+            the learning journey exciting, fun, and effective.
+        </p>
+        <p>
+            By using our system, you can track your progress, compete with peers, and achieve new milestones while 
+            expanding your knowledge and skills. Join us on this innovative journey to make learning more enjoyable!
+        </p>
     </div>
 </body>
 </html>
