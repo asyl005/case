@@ -7,7 +7,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <div class="sidebar" id="sidebar">
     <div class="logo">NSA</div>
     <ul class="menu">
-        <li class="<?= ($current_page == 'index.php') ? 'active' : '' ?>"><a href="index.php">🏠 Главная</a></li>
+        <li class="<?= ($current_page == 'dashboard.php') ? 'active' : '' ?>"><a href="dashboard.php">🏠 Главная</a></li>
         <li class="<?= ($current_page == 'dost.php') ? 'active' : '' ?>"><a href="dost.php">🏆 Мои достижения</a></li>
         <li class="<?= ($current_page == 'reiting.php') ? 'active' : '' ?>"><a href="reiting.php">📊 Рейтинги</a></li>
         <li class="<?= ($current_page == 'task.php') ? 'active' : '' ?>"><a href="task.php">📚 Задания</a></li>
