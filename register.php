@@ -4,7 +4,7 @@ include 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
+    $password = md5($_POST['password']); // Шифрование пароля
     $role = $_POST['role'];
 
     // Проверяем, существует ли пользователь
@@ -32,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $conn->query($query);
             }
 
-            $success = "Регистрация прошла успешно! Теперь вы можете войти.";
+            // Редирект на страницу login.php
+            header("Location: login.php");
+            exit();
         } else {
             $error = "Ошибка регистрации! Попробуйте снова.";
         }
@@ -151,7 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="register-form">
             <h1>Регистрация</h1>
             <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
-            <?php if (!empty($success)) echo "<p class='success'>$success</p>"; ?>
             <form method="POST">
                 <input type="text" name="username" placeholder="Имя пользователя" required>
                 <input type="password" name="password" placeholder="Пароль" required>
@@ -159,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="student">Студент</option>
                     <option value="teacher">Учитель</option>
                 </select>
-                <a href="login.php" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Зарегистрироваться</a>
+                <button type="submit">Зарегистрироваться</button>
             </form>
             <p>Уже есть аккаунт? <a href="login.php">Войти</a></p>
         </div>
