@@ -20,6 +20,14 @@ $user_assignments = [];
 while ($row = mysqli_fetch_assoc($user_assignments_result)) {
     $user_assignments[$row['assignment_id']] = $row['status'];
 }
+
+// Получаем список достижений
+$sql_achievements = "SELECT * FROM achievements_dost";
+$result_achievements = $conn->query($sql_achievements);
+
+// Получаем список целей
+$sql_goals = "SELECT * FROM goals_dost";
+$result_goals = $conn->query($sql_goals);
 ?>
 
 <!DOCTYPE html>
@@ -27,8 +35,9 @@ while ($row = mysqli_fetch_assoc($user_assignments_result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Задания</title>
+    <title>Мои достижения и задания</title>
     <style>
+        /* Общие стили */
         body {
             font-family: Arial, sans-serif;
             background-color: #f7f7f7;
@@ -40,14 +49,14 @@ while ($row = mysqli_fetch_assoc($user_assignments_result)) {
             color: #4c3b6e;
         }
 
-        .assignment-list {
+        .assignment-list, .achievement-list {
             background-color: #fff;
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .assignment-list h2 {
+        .assignment-list h2, .achievement-list h2 {
             color: #4c3b6e;
             margin-bottom: 10px;
         }
@@ -103,12 +112,54 @@ while ($row = mysqli_fetch_assoc($user_assignments_result)) {
         .submit-btn:hover {
             background-color: #6f57a1;
         }
+
+        .achievement, .goal {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement h3, .goal h3 {
+            font-size: 18px;
+            color: #4c3b6e;
+            margin-bottom: 5px;
+        }
+
+        .achievement p, .goal p {
+            color: #555;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
 
-<h1>Задания</h1>
+<h1>Мои достижения и задания</h1>
 
+<!-- Секция для достижений -->
+<div class="achievement-list">
+    <h2>Значки, трофеи и сертификаты</h2>
+    <?php if ($result_achievements->num_rows > 0): ?>
+        <?php while($row = $result_achievements->fetch_assoc()): ?>
+            <div class="achievement">
+                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                <p><?php echo htmlspecialchars($row['description']); ?></p>
+                <p>Тип: <?php echo ucfirst($row['type']); ?></p>
+                <?php if ($row['type'] == 'badge'): ?>
+                    <div class="badge-progress">
+                        Прогресс: <?php echo $row['progress']; ?>%
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>Нет достижений.</p>
+    <?php endif; ?>
+</div>
+
+<!-- Секция для заданий -->
 <div class="assignment-list">
     <h2>Все задания</h2>
     <table>
@@ -154,7 +205,6 @@ while ($row = mysqli_fetch_assoc($user_assignments_result)) {
 <script>
 // Функция для обновления статуса задания
 function updateStatus(assignment_id, status) {
-    // Здесь можно сделать AJAX-запрос для обновления статуса в базе данных
     fetch('update_status.php', {
         method: 'POST',
         headers: {
@@ -168,7 +218,7 @@ function updateStatus(assignment_id, status) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            location.reload(); // Обновить страницу после изменения статуса
+            location.reload();
         } else {
             alert('Ошибка при обновлении статуса');
         }
