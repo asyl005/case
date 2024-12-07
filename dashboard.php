@@ -19,33 +19,17 @@ $profile = $result->fetch_assoc();
 <html>
 <head>
     <title>Панель пользователя</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Добро пожаловать, <?php echo $_SESSION['username']; ?>!</h1>
+        <h1>Добро пожаловать!</h1>
         <p>Роль: <?php echo $role; ?></p>
         <p>Текущий уровень: <?php echo $profile['level']; ?></p>
         <p>Баллы: <?php echo $profile['points']; ?></p>
-
-        <!-- Форма редактирования профиля -->
-        <h2>Редактировать профиль</h2>
-        <form method="POST" action="edit_profile.php">
-            <input type="text" name="new_username" placeholder="Новое имя пользователя" required>
-            <input type="password" name="new_password" placeholder="Новый пароль" required>
-            <button type="submit">Сохранить изменения</button>
-        </form>
+        <img src="<?php echo $profile['profile_picture']; ?>" alt="Фото профиля" width="100" height="100">
+        <br>
+        <a href="edit_profile.php">Редактировать профиль</a>
     </div>
-
-    <?php if ($role == 'teacher'): ?>
-        <h2>Добавить баллы студенту</h2>
-        <form action="add_points.php" method="POST">
-            <input type="number" name="student_id" placeholder="ID студента" required>
-            <input type="number" name="points" placeholder="Баллы" required>
-            <button type="submit">Добавить</button>
-        </form>
-    <?php endif; ?>
-
-    <a href="leaderboard.php">Рейтинг студентов</a>
 </body>
 </html>

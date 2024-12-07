@@ -2,7 +2,8 @@
 session_start();
 include 'db.php';
 
-$query = "SELECT u.username, p.points, p.level FROM profiles p JOIN users u ON p.user_id = u.id ORDER BY p.points DESC";
+// Запрос на получение только студентов
+$query = "SELECT u.username, p.points, p.level FROM profiles p JOIN users u ON p.user_id = u.id WHERE u.role = 'student' ORDER BY p.points DESC";
 $result = $conn->query($query);
 ?>
 
@@ -27,20 +28,5 @@ $result = $conn->query($query);
         </tr>
         <?php endwhile; ?>
     </table>
-    <button id="refreshLeaderboard">Обновить рейтинг</button>
-<div id="leaderboardTable">
-    <!-- Таблица будет загружаться через AJAX -->
-</div>
-
-<script>
-document.getElementById('refreshLeaderboard').addEventListener('click', function() {
-    fetch('leaderboard_data.php')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('leaderboardTable').innerHTML = data;
-        });
-});
-</script>
-
 </body>
 </html>

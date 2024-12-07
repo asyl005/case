@@ -6,36 +6,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $role = $_POST['role'];
+    $profile_picture = $_FILES['profile_picture'];
 
-    // Проверяем, существует ли пользователь
+    // Проверка на существование пользователя
     $query = "SELECT * FROM users WHERE username = '$username'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
         $error = "Пользователь с таким именем уже существует!";
     } else {
-        // Добавляем нового пользователя
+        // Обработка загрузки фото профиля
+        if ($profile_picture['error'] === 0) {
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($profile_picture["name"]);
+            move_uploaded_file($profile_picture["tmp_name"], $target_file);
+            $profile_picture_path = $target_file;
+        } else {
+            $profile_picture_path = 'uploads/default.png'; // Фото по умолчанию
+        }
+
+        // Добавление пользователя
         $query = "INSERT INTO users (username, password, role) VALUES ('$username', '$password', '$role')";
         if ($conn->query($query)) {
             $user_id = $conn->insert_id;
 
-            // Создаем профиль для пользователя
-            $query = "INSERT INTO profiles (user_id) VALUES ($user_id)";
+            // Создание профиля
+            $query = "INSERT INTO profiles (user_id, profile_picture) VALUES ($user_id, '$profile_picture_path')";
             $conn->query($query);
 
-            $success = "Регистрация прошла успешно! Теперь вы можете войти.";
+            $success = "Регистрация прошла успешно!";
         } else {
-            $error = "Ошибка регистрации! Попробуйте снова.";
+            $error = "Ошибка регистрации!";
         }
     }
-// Добавление достижения "Зарегистрирован"
-$achievement_query = "SELECT * FROM achievements WHERE name = 'Зарегистрирован'";
-$achievement_result = $conn->query($achievement_query);
-$achievement = $achievement_result->fetch_assoc();
-
-$query = "INSERT INTO user_achievements (user_id, achievement_id) VALUES ($user_id, " . $achievement['id'] . ")";
-$conn->query($query);
-
 }
 ?>
 
@@ -43,21 +46,22 @@ $conn->query($query);
 <html>
 <head>
     <title>Регистрация</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Регистрация</h1>
         <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
         <?php if (!empty($success)) echo "<p class='success'>$success</p>"; ?>
-        
-        <form method="POST">
+
+        <form method="POST" enctype="multipart/form-data">
             <input type="text" name="username" placeholder="Имя пользователя" required>
             <input type="password" name="password" placeholder="Пароль" required>
             <select name="role" required>
                 <option value="student">Студент</option>
                 <option value="teacher">Учитель</option>
             </select>
+            <input type="file" name="profile_picture" accept="image/*">
             <button type="submit">Зарегистрироваться</button>
         </form>
         <p>Уже есть аккаунт? <a href="index.php">Войти</a></p>
