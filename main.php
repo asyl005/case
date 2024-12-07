@@ -20,7 +20,7 @@
             align-items: center;
         }
         header .logo {
-            font-size: 24px;
+            font-size: 24px;2
             font-weight: bold;
             color: #fff;
         }
