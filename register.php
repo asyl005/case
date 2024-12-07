@@ -1,38 +1,48 @@
 <?php
 session_start();
-include 'db.php';
+include 'db.php'; // Подключение к базе данных
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
-    $password = md5($_POST['password']); // Шифрование пароля
+    $password = $_POST['password'];
     $role = $_POST['role'];
 
     // Проверяем, существует ли пользователь
-    $query = "SELECT * FROM users WHERE username = '$username'";
-    $result = $conn->query($query);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $error = "Пользователь с таким именем уже существует!";
     } else {
+        // Хэшируем пароль
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
         // Добавляем нового пользователя
-        $query = "INSERT INTO users (username, password, role) VALUES ('$username', '$password', '$role')";
-        if ($conn->query($query)) {
-            $user_id = $conn->insert_id;
+        $stmt = $conn->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $hashed_password, $role);
+
+        if ($stmt->execute()) {
+            $user_id = $stmt->insert_id;
 
             // Создаем профиль для пользователя
-            $query = "INSERT INTO profiles (user_id) VALUES ($user_id)";
-            $conn->query($query);
+            $stmt = $conn->prepare("INSERT INTO profiles (user_id) VALUES (?)");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
 
-            // Добавляем достижение "Зарегистрирован"
-            $achievement_query = "SELECT * FROM achievements WHERE name = 'Зарегистрирован'";
+            // Добавляем достижение "Зарегистрирован", если оно существует
+            $achievement_query = "SELECT id FROM achievements WHERE name = 'Зарегистрирован'";
             $achievement_result = $conn->query($achievement_query);
+
             if ($achievement_result->num_rows > 0) {
                 $achievement = $achievement_result->fetch_assoc();
-                $query = "INSERT INTO user_achievements (user_id, achievement_id) VALUES ($user_id, " . $achievement['id'] . ")";
-                $conn->query($query);
+                $stmt = $conn->prepare("INSERT INTO user_achievements (user_id, achievement_id) VALUES (?, ?)");
+                $stmt->bind_param("ii", $user_id, $achievement['id']);
+                $stmt->execute();
             }
 
-            // Редирект на страницу login.php
+            // Редирект на страницу входа
             header("Location: login.php");
             exit();
         } else {
@@ -41,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
