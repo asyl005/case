@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="student">Студент</option>
                     <option value="teacher">Учитель</option>
                 </select>
-                <button type="submit">Зарегистрироваться</button>
+                <button type="button" onclick="window.location.href='login.php'">Зарегистрироваться</button>
             </form>
             <p>Уже есть аккаунт? <a href="login.php">Войти</a></p>
         </div>
