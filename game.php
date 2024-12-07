@@ -204,7 +204,7 @@ $futureCompetitions = [
             <li><a href="logout2.php">Шығу</a></li>
         </ul>
         <div class="footer">
-            &copy; 2024 StudyLife+
+            &copy; 2024 NSA
         </div>
     </div>
 
