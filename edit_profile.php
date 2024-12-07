@@ -44,21 +44,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <title>Редактировать профиль</title>
     <style>
-         * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            background-color: #f3f4f7;
+            background-color: #f7f7f7;
             color: #333;
             display: flex;
             justify-content: center;
@@ -69,25 +69,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         /* Profile Container */
         .profile-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
         .profile-container h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #4c3b6e;
         }
 
         /* Success Message */
         .success {
             background-color: #d4edda;
             color: #155724;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             margin-bottom: 15px;
             font-size: 14px;
@@ -101,11 +101,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .profile-image img {
-            width: 100px;
-            height: 100px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 20px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* Form Styling */
@@ -115,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .profile-form label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             text-align: left;
             font-weight: bold;
             color: #555;
@@ -123,56 +125,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .profile-form input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 14px;
+            transition: border-color 0.3s ease;
         }
 
         .profile-form input:focus {
-            border-color: #007bff;
+            border-color: #4c3b6e;
             outline: none;
+        }
+
+        .profile-form input[type="file"] {
+            padding: 0;
+            font-size: 14px;
         }
 
         /* Submit Button */
         .btn-submit {
             width: 100%;
-            padding: 10px 15px;
-            background-color: #007bff;
+            padding: 12px;
+            background-color: #4c3b6e;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         .btn-submit:hover {
-            background-color: #0056b3;
-        }
-        
-        .profile-image img {
-            width: 300px;
-            height: 300px;
-            object-fit: cover; /* Чтобы изображение хорошо вписывалось в рамку */
-            border: 3px solid #ccc; /* Добавляем рамку вокруг изображения */
-            border-radius: 10px; /* Округляем углы */
-            margin-bottom: 20px;
+            background-color: #6f57a1;
         }
 
-        /* Стили для текста о пользователе */
-        .profile-about textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
+
     <div class="profile-container">
         <h1>Редактировать профиль</h1>
 
@@ -196,5 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+
 </body>
 </html>
