@@ -36,21 +36,8 @@
             <div class="profile-info">
                 <h1><?php echo htmlspecialchars($user['username']); ?></h1>
                 <p>Autrice - Compositrice & Interprète</p>
-                <div class="social-media">
-                    <a href="#">Twitter</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">YouTube</a>
-                    <a href="#">SoundCloud</a>
-                </div>
             </div>
         </div>
-
-        <div class="profile-stats">
-            <p><strong>3K</strong> Following</p>
-            <p><strong>30.5M</strong> Followers</p>
-            <p><strong>90.6M</strong> Views</p>
-        </div>
-
         <div class="profile-about">
             <h2>About</h2>
             <p>Adele (born 5 May 1988) is an English singer-songwriter...</p>
