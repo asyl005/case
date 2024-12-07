@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="student">Студент</option>
                     <option value="teacher">Учитель</option>
                 </select>
-                <button type="submit">Зарегистрироваться</button>
+                <a href="login.php" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Зарегистрироваться</a>
             </form>
             <p>Уже есть аккаунт? <a href="login.php">Войти</a></p>
         </div>
