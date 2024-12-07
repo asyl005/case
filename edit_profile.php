@@ -189,6 +189,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <button type="submit" class="btn-submit" onclick="window.location.href='profile.php'>Сохранить изменения</button>
             </form>
+
+            <script>
+                function redirectToProfile() 
+                    window.location.href = 'profile.php';
+                }
+</script>
         </div>
     </div>
 
