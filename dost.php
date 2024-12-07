@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "achievements_db";
+$dbname = "gamification";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
