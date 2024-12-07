@@ -1,14 +1,14 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'gamification';
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gamification";
 
-// Подключение к базе данных
-$conn = new mysqli($host, $user, $password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Проверка подключения
+// Check connection
 if ($conn->connect_error) {
-    die("Ошибка подключения: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

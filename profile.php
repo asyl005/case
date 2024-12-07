@@ -1,129 +1,45 @@
-<?php
-session_start();
-include 'db.php';
-
-// Проверяем, вошел ли пользователь
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
-    exit();
-}
-
-$user_id = $_SESSION['user_id'];
-$role = $_SESSION['role'];
-
-// Запрашиваем информацию о профиле из базы данных
-$query = "SELECT * FROM profiles WHERE user_id = $user_id";
-$result = $conn->query($query);
-$profile = $result->fetch_assoc();
-?>
-
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Панель пользователя</title>
+    <title>User Profile</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #4c3b6e;
-            color: #ffffff;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #3a2c59;
-            border-radius: 8px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .stats div {
-            background-color: #4e3c6f;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            width: 30%;
-        }
-        .stats div h3 {
-            margin: 10px 0;
-            color: #a37fdc;
-        }
-        .chart {
-            margin: 20px 0;
-        }
-        img {
-            border-radius: 50%;
-            margin-top: 20px;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            color: #6f57a1;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .calendar {
-            margin-top: 20px;
-            background-color: #4e3c6f;
-            padding: 20px;
-            border-radius: 8px;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Добро пожаловать, <?php echo $_SESSION['username']; ?>!</h1>
-            <img src="<?php echo $profile['profile_picture']; ?>" alt="Фото профиля" width="100" height="100">
-        </div>
-
-        <div class="stats">
-            <div>
-                <h3><?php echo $profile['level']; ?></h3>
-                <p>Текущий уровень</p>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-image">
+                <img src="profile-pic.jpg" alt="Adele" />
             </div>
-            <div>
-                <h3><?php echo $profile['points']; ?></h3>
-                <p>Баллы</p>
-            </div>
-            <div>
-                <h3><?php echo $role; ?></h3>
-                <p>Роль</p>
+            <div class="profile-info">
+                <h1>Adele Laurie Blue Adkins</h1>
+                <p>Autrice - Compositrice & Interprète</p>
+                <div class="social-media">
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">YouTube</a>
+                    <a href="#">SoundCloud</a>
+                </div>
             </div>
         </div>
 
-        <div class="chart">
-            <h2>Обзор активности</h2>
-            <img src="chart-placeholder.png" alt="График активности" width="100%">
+        <div class="profile-stats">
+            <p><strong>3K</strong> Following</p>
+            <p><strong>30.5M</strong> Followers</p>
+            <p><strong>90.6M</strong> Views</p>
         </div>
 
-        <div class="calendar">
-            <h2>Календарь</h2>
-            <p>Событий пока нет</p>
+        <div class="profile-about">
+            <h2>About</h2>
+            <p>Adele (born 5 May 1988) is an English singer-songwriter. After graduating from the BRIT School for Performing Arts and Technology in 2006, Adele was given a recording contract by XL Recordings after a friend posted her demo on Myspace the same year...</p>
         </div>
 
-        <a href="edit_profile.php">Редактировать профиль</a>
+        <div class="profile-actions">
+            <button class="follow-btn">Follow</button>
+            <a href="edit_profile.php"><button class="view-btn">View More</button></a>
+        </div>
     </div>
 </body>
 </html>
+
