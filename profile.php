@@ -77,13 +77,21 @@
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .profile-image {
+            position: relative;
+            margin-bottom: 20px; /* Добавлено место сверху */
         }
 
         .profile-image img {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            margin-right: 20px;
+            object-fit: cover; /* Сохраняет пропорции изображения, обрезая его, если необходимо */
+            border: 5px solid #fff; /* Белая рамка вокруг фото */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .profile-info h1 {
