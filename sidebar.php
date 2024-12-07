@@ -1,25 +1,20 @@
-<?php
-// Получаем текущую страницу
-$current_page = basename($_SERVER['PHP_SELF']);
-?>
-
 <!-- Боковое меню -->
 <div class="sidebar" id="sidebar">
     <div class="logo">NSA</div>
     <ul class="menu">
-        <li class="<?= ($current_page == 'dashboard.php') ? 'active' : '' ?>"><a href="dashboard.php">🏠 Главная</a></li>
-        <li class="<?= ($current_page == 'dost.php') ? 'active' : '' ?>"><a href="dost.php">🏆 Мои достижения</a></li>
-        <li class="<?= ($current_page == 'reiting.php') ? 'active' : '' ?>"><a href="reiting.php">📊 Рейтинги</a></li>
-        <li class="<?= ($current_page == 'task.php') ? 'active' : '' ?>"><a href="task.php">📚 Задания</a></li>
-        <li class="<?= ($current_page == 'game.php') ? 'active' : '' ?>"><a href="game.php">🎮 Соревнования</a></li>
-        <li class="<?= ($current_page == 'obmen.php') ? 'active' : '' ?>"><a href="obmen.php">🤝 Обмен вещами</a></li>
-        <li class="<?= ($current_page == 'uslug.php') ? 'active' : '' ?>"><a href="uslug.php">🛠️ Поиск услуг</a></li>
-        <li class="<?= ($current_page == 'dosug.php') ? 'active' : '' ?>"><a href="dosug.php">🎉 Досуг</a></li>
-        <li class="<?= ($current_page == 'sob.php') ? 'active' : '' ?>"><a href="sob.php">💬 Сообщество</a></li>
-        <li class="<?= ($current_page == 'data.php') ? 'active' : '' ?>"><a href="data.php">🗓 Календарь</a></li>
-        <li class="<?= ($current_page == 'goals.php') ? 'active' : '' ?>"><a href="goals.php">🎯 Мои цели</a></li>
-        <li class="<?= ($current_page == 'profile.php') ? 'active' : '' ?>"><a href="profile.php">👤 Профиль</a></li>
-        <li class="<?= ($current_page == 'user_settings.php') ? 'active' : '' ?>"><a href="user_settings.php">⚙️ Настройки</a></li>
+        <li class="active"><a href="#">🏠 Главная</a></li>
+        <li><a href="dost.php">🏆 Мои достижения</a></li>
+        <li><a href="reiting.php">📊 Рейтинги</a></li>
+        <li><a href="task.php">📚 Задания</a></li>
+        <li><a href="game.php">🎮 Соревнования</a></li>
+        <li><a href="obmen.php">🤝 Обмен вещами</a></li>
+        <li><a href="uslug.php">🛠️ Поиск услуг</a></li>
+        <li><a href="dosug.php">🎉 Досуг</a></li>
+        <li><a href="sob.php">💬 Сообщество</a></li>
+        <li><a href="data.php">🗓 Календарь</a></li>
+        <li><a href="goals.php">🎯 Мои цели</a></li>
+        <li><a href="profile.php">👤 Профиль</a></li>
+        <li><a href="user_settings.php">⚙️ Настройки</a></li>
         <li><a href="logout2.php">Шығу</a></li>
     </ul>
     <div class="footer">
@@ -27,64 +22,83 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
 </div>
 
-<!-- Стили для бокового меню -->
+<!-- Кнопка для открытия меню -->
+<button class="open-btn" onclick="toggleSidebar()">☰</button>
+
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        display: flex;
-    }
-
+    /* Стили для бокового меню */
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
         width: 250px;
-        background-color: #4c3b6e;
-        color: white;
-        overflow-y: auto;
-        z-index: 1000;
+        height: 100vh;
+        background-color: #ffffff;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        transform: translateX(-250px);
+        opacity: 0;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
     }
 
-    .logo {
-        font-size: 24px;
-        text-align: center;
-        padding: 15px 0;
-        background-color: #3c2a56;
-        border-bottom: 1px solid #ddd;
+    .sidebar.open {
+        transform: translateX(0);
+        opacity: 1;
     }
 
     .menu {
-        list-style-type: none;
+        list-style: none;
         padding: 0;
         margin: 0;
+        flex-grow: 1;
     }
 
     .menu li {
-        margin: 10px 0;
+        border-bottom: 1px solid #f4f5fa;
     }
 
     .menu li a {
         text-decoration: none;
-        color: white;
-        padding: 10px 20px;
-        display: block;
-        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        color: #333;
+        font-size: 16px;
+        transition: all 0.3s;
     }
 
-    .menu li a:hover,
+    .menu li a:hover {
+        background-color: #f4f5fa;
+        color: #4c3b6e;
+    }
+
     .menu li.active a {
-        background-color: #3c2a56;
-        font-weight: bold;
+        background-color: #4c3b6e;
+        color: white;
     }
 
-    .footer {
-        text-align: center;
-        padding: 10px 0;
-        background-color: #3c2a56;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
+    /* Кнопка для открытия меню */
+    .open-btn {
+        font-size: 28px;
+        color: #fff;
+        background-color: #4c3b6e;
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+    }
+
+    .open-btn:hover {
+        background-color: #6f57a1;
     }
 </style>
+
+<script>
+    // Функция для переключения бокового меню
+    function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
+    }
+</script>
