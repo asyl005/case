@@ -144,7 +144,14 @@ $futureCompetitions = [
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            transition: box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         section:hover {
@@ -169,6 +176,13 @@ $futureCompetitions = [
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        li.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         li:hover {
@@ -249,11 +263,11 @@ $futureCompetitions = [
             <div>Соревнования</div>
         </div>
 
-        <section id="current-competitions">
+        <section id="current-competitions" class="visible">
             <h2>Текущие соревнования</h2>
             <ul id="current-list">
                 <?php foreach ($currentCompetitions as $competition): ?>
-                    <li>
+                    <li class="visible">
                         <strong><?= htmlspecialchars($competition['name']) ?></strong> - <?= htmlspecialchars($competition['date']) ?>
                         <p><?= htmlspecialchars($competition['description']) ?></p>
                     </li>
@@ -261,11 +275,11 @@ $futureCompetitions = [
             </ul>
         </section>
 
-        <section id="future-competitions">
+        <section id="future-competitions" class="visible">
             <h2>Будущие соревнования</h2>
             <ul id="future-list">
                 <?php foreach ($futureCompetitions as $competition): ?>
-                    <li>
+                    <li class="visible">
                         <strong><?= htmlspecialchars($competition['name']) ?></strong> - <?= htmlspecialchars($competition['date']) ?>
                         <p><?= htmlspecialchars($competition['description']) ?></p>
                     </li>
@@ -287,6 +301,15 @@ $futureCompetitions = [
             sidebar.classList.toggle("open");
             mainContent.classList.toggle("closed");
         }
+
+        // Добавление анимации после загрузки страницы
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll('section');
+            const listItems = document.querySelectorAll('li');
+
+            sections.forEach(section => section.classList.add('visible'));
+            listItems.forEach(item => item.classList.add('visible'));
+        });
     </script>
 </body>
 </html>
