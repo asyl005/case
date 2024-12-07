@@ -1,208 +1,200 @@
+<?php
+session_start();
+include 'db.php';
+
+// Получаем ID пользователя из сессии
+$user_id = $_SESSION['user_id']; // Это ID текущего пользователя
+
+// Получаем данные пользователя из базы данных
+$query = "SELECT * FROM users WHERE id = $user_id";
+$result = $conn->query($query);
+$user = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $new_username = $_POST['new_username'];
+    $new_password = md5($_POST['new_password']);
+    $profile_picture = $_FILES['profile_picture'];
+
+    // Обработка загрузки фото профиля
+    if ($profile_picture['error'] === 0) {
+        $target_dir = "uploads/";
+        $filename = basename($profile_picture["name"]);
+        $filename = preg_replace("/[^a-zA-Z0-9.]/", "_", $filename); // Санитизация имени файла
+        $target_file = $target_dir . $filename;
+
+        if (move_uploaded_file($profile_picture["tmp_name"], $target_file)) {
+            $profile_picture_path = $target_file;
+        } else {
+            $profile_picture_path = 'uploads/default.png'; // Фотография по умолчанию, если загрузка не удалась
+        }
+    } else {
+        $profile_picture_path = $user['profile_picture']; // Оставляем текущую фотографию, если новая не выбрана
+    }
+
+    // Обновляем данные пользователя
+    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password' WHERE id = $user_id";
+    $conn->query($update_user_query);
+
+    // Обновляем фотографию профиля
+    $update_profile_query = "UPDATE users SET profile_picture = '$profile_picture_path' WHERE id = $user_id";
+    $conn->query($update_profile_query);
+
+    $success = "Профиль успешно обновлен!";
+}
+?>
+
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль пользователя</title>
+    <title>Edit Profile</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        header {
-            background-color: #4c3b6e;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        main {
-            padding: 20px;
-        }
-
-        section {
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #4c3b6e;
-            margin-bottom: 10px;
-        }
-
-        .achievement, .goal {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            margin: 5px 0;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .achievement h3, .goal h3 {
-            font-size: 18px;
-            color: #4c3b6e;
-            margin-bottom: 5px;
-        }
-
-        .achievement p, .goal p {
-            color: #555;
-            margin-top: 5px;
-        }
-
-        footer {
-            text-align: center;
-            background-color: #4c3b6e;
-            color: white;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .profile-container {
-            margin: 20px auto;
-            max-width: 900px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-header {
+        body {
+            background-color: #f3f4f7;
+            color: #333;
             display: flex;
-            align-items: center;
-            margin-bottom: 20px;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .profile-image {
-            position: relative;
-            margin-bottom: 20px; /* Добавлено место сверху */
+        /* Profile Container */
+        .profile-container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .profile-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Success Message */
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        /* Profile Image */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .profile-image img {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            object-fit: cover; /* Сохраняет пропорции изображения, обрезая его, если необходимо */
-            border: 5px solid #fff; /* Белая рамка вокруг фото */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+            margin-bottom: 20px;
         }
 
-        .profile-info h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #4c3b6e;
+        /* Form Styling */
+        .profile-form {
+            width: 100%;
         }
 
-        .profile-info p {
-            font-size: 16px;
-            color: #777;
-        }
-
-        .social-media a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #4c3b6e;
-        }
-
-        .profile-stats p {
-            font-size: 18px;
-            margin: 10px 0;
+        .profile-form label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+            font-weight: bold;
             color: #555;
         }
 
-        .profile-about h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #4c3b6e;
+        .profile-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
         }
 
-        .profile-actions button {
-            background-color: #4c3b6e;
-            color: white;
-            padding: 10px 20px;
+        .profile-form input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
             border: none;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background-color 0.3s;
         }
 
-        .profile-actions .follow-btn {
-            background-color: #6f57a1;
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        
+        .profile-image img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover; /* Чтобы изображение хорошо вписывалось в рамку */
+            border: 3px solid #ccc; /* Добавляем рамку вокруг изображения */
+            border-radius: 10px; /* Округляем углы */
+            margin-bottom: 20px;
         }
 
-        .profile-actions button:hover {
-            opacity: 0.8;
+        /* Стили для текста о пользователе */
+        .profile-about textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <?php
-    // Подключение к базе данных
-    include 'db.php';
-    
-    // Получаем ID пользователя из сессии
-    session_start();
-    $user_id = $_SESSION['user_id']; // Это ID текущего пользователя
-    
-    // Получаем данные пользователя из базы данных
-    $query = "SELECT * FROM users WHERE id = $user_id";
-    $result = $conn->query($query);
-    $user = $result->fetch_assoc();
-    
-    // Если пользователь не найден, выводим ошибку
-    if (!$user) {
-        echo "Пользователь не найден.";
-        exit;
-    }
-    ?>
-
     <div class="profile-container">
-        <header>
-            <h1>Профиль пользователя</h1>
-        </header>
+        <h1>Редактировать профиль</h1>
 
-        <div class="profile-header">
+        <?php if (!empty($success)) echo "<p class='success'>$success</p>"; ?>
+
+        <div class="profile-card">
             <div class="profile-image">
-                <!-- Используем путь к изображению из базы данных, если оно существует -->
-                <img src="<?php echo $user['profile_picture'] ? $user['profile_picture'] : 'uploads/default.png'; ?>" alt="Profile Picture" />
+                <img src="<?php echo $user['profile_picture'] ? $user['profile_picture'] : 'uploads/default.png'; ?>" alt="Profile Picture">
             </div>
-            <div class="profile-info">
-                <h1><?php echo htmlspecialchars($user['username']); ?></h1>
-                <p>Autrice - Compositrice & Interprète</p>
-                <div class="social-media">
-                    <a href="#">Twitter</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">YouTube</a>
-                    <a href="#">SoundCloud</a>
-                </div>
-            </div>
-        </div>
+            <form method="POST" enctype="multipart/form-data" class="profile-form">
+                <label for="new_username">Имя пользователя</label>
+                <input type="text" name="new_username" id="new_username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
 
-        <div class="profile-stats">
-            <p><strong>3K</strong> Following</p>
-            <p><strong>30.5M</strong> Followers</p>
-            <p><strong>90.6M</strong> Views</p>
-        </div>
+                <label for="new_password">Новый пароль</label>
+                <input type="password" name="new_password" id="new_password" required>
 
-        <div class="profile-about">
-            <h2>О пользователе</h2>
-            <p>Adele (родилась 5 мая 1988 года) — английская певица и автор песен...</p>
-        </div>
+                <label for="profile_picture">Фото профиля</label>
+                <input type="file" name="profile_picture" id="profile_picture" accept="image/*">
 
-        <div class="profile-actions">
-            <button class="follow-btn">Follow</button>
-            <a href="edit_profile.php"><button class="view-btn">Редактировать профиль</button></a>
+                <button type="submit" class="btn-submit">Сохранить изменения</button>
+            </form>
         </div>
     </div>
-
-    <footer>
-        &copy; 2024 StudyLife+
-    </footer>
 </body>
 </html>
