@@ -52,20 +52,17 @@
     </style>
 </head>
 <body>
-    <?php
-    // Вывод шапки сайта
-    echo '
     <header>
         <div class="logo">NSA</div>
         <nav>
             <a href="main.php">Home</a>
             <a href="about.php">About</a>
-            <a href="#contact">Contact</a>
+            <a href="contact.php">Contact</a>
             <a href="login.php">Log in</a>
             <a href="register.php">Sign up</a>
         </nav>
     </header>';
-    ?>
+    
 
     <div class="about-section">
         <h1>About Us</h1>
