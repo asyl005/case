@@ -1,31 +1,25 @@
 <?php
-// Массив текущих соревнований
-$currentCompetitions = [
-    [
-        'name' => 'Квиз по искусству',
-        'date' => '2024-12-07',
-        'description' => 'Проверьте свои знания о мировой живописи.'
-    ],
-    [
-        'name' => 'Челлендж на выживание',
-        'date' => '2024-12-10',
-        'description' => 'Тестируем вашу выносливость и умение выживать в экстремальных условиях.'
-    ]
-];
+// Подключение к базе данных
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gamification";
 
-// Массив будущих соревнований
-$futureCompetitions = [
-    [
-        'name' => 'Тематический конкурс "Эко-стиль"',
-        'date' => '2025-01-15',
-        'description' => 'Конкурс на лучший экологически чистый проект.'
-    ],
-    [
-        'name' => 'Конкурс для программистов',
-        'date' => '2025-02-01',
-        'description' => 'Представьте свой проект на конкурс для программистов.'
-    ]
-];
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Проверка подключения
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Получаем список достижений
+$sql_achievements = "SELECT * FROM achievements_dost";
+$result_achievements = $conn->query($sql_achievements);
+
+// Получаем список целей
+$sql_goals = "SELECT * FROM goals_dost";
+$result_goals = $conn->query($sql_goals);
+
 ?>
 
 <!DOCTYPE html>
@@ -33,15 +27,8 @@ $futureCompetitions = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Соревнования</title>
+    <title>Мои достижения</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-
         /* Общие стили */
         * {
             margin: 0;
@@ -49,60 +36,12 @@ $futureCompetitions = [
             box-sizing: border-box;
         }
 
-        header {
-            background-color: #4c3b6e;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        main {
-            padding: 20px;
-            margin-left: 250px;
-            transition: margin-left 0.5s ease;
-        }
-
-        section {
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            color: #4c3b6e;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            margin: 5px 0;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        li strong {
-            display: block;
-            font-size: 18px;
-            color: #4c3b6e;
-        }
-
-        p {
-            color: #555;
-            margin-top: 5px;
-        }
-
-        footer {
-            text-align: center;
-            background-color: #4c3b6e;
-            color: white;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
         }
 
         /* Боковое меню */
@@ -163,6 +102,78 @@ $futureCompetitions = [
             color: white;
         }
 
+        /* Основной контент */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            background-color: #f7f7f7;
+            transition: margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-content.closed {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4c3b6e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .icon {
+            font-size: 28px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4c3b6e;
+            margin-bottom: 10px;
+        }
+
+        .achievement, .goal {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement h3, .goal h3 {
+            font-size: 18px;
+            color: #4c3b6e;
+            margin-bottom: 5px;
+        }
+
+        .achievement p, .goal p {
+            color: #555;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #4c3b6e;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
         /* Кнопка для открытия меню */
         .open-btn {
             font-size: 28px;
@@ -175,6 +186,8 @@ $futureCompetitions = [
             top: 20px;
             left: 20px;
             z-index: 1000;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .open-btn:hover {
@@ -209,47 +222,73 @@ $futureCompetitions = [
     </div>
 
     <!-- Основной контент -->
-    <main id="mainContent">
-        <header>
-            <button class="open-btn" onclick="toggleSidebar()">☰</button>
-            <h1>Соревнования</h1>
-        </header>
+    <div class="main-content closed" id="mainContent">
+        <div class="header">
+            <span class="icon" onclick="toggleSidebar()">☰</span>
+            <div>Мои достижения</div>
+        </div>
 
-        <section id="current-competitions">
-            <h2>Текущие соревнования</h2>
-            <ul id="current-list">
-                <?php foreach ($currentCompetitions as $competition): ?>
-                    <li>
-                        <strong><?= htmlspecialchars($competition['name']) ?></strong> - <?= htmlspecialchars($competition['date']) ?>
-                        <p><?= htmlspecialchars($competition['description']) ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+        <!-- Секция для достижений -->
+        <section>
+            <h2>Значки, трофеи и сертификаты</h2>
+            <div class="achievements">
+                <?php if ($result_achievements->num_rows > 0): ?>
+                    <?php while($row = $result_achievements->fetch_assoc()): ?>
+                        <div class="achievement">
+                            <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($row['description']); ?></p>
+                            <p>Тип: <?php echo ucfirst($row['type']); ?></p>
+                            <?php if ($row['type'] == 'badge'): ?>
+                                <div class="badge-progress">
+                                    Прогресс: <?php echo $row['progress']; ?>%
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>Нет достижений.</p>
+                <?php endif; ?>
+            </div>
         </section>
 
-        <section id="future-competitions">
-            <h2>Будущие соревнования</h2>
-            <ul id="future-list">
-                <?php foreach ($futureCompetitions as $competition): ?>
-                    <li>
-                        <strong><?= htmlspecialchars($competition['name']) ?></strong> - <?= htmlspecialchars($competition['date']) ?>
-                        <p><?= htmlspecialchars($competition['description']) ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+        <!-- Секция для целей -->
+        <section>
+            <h2>Мои цели</h2>
+            <div class="goals">
+                <?php if ($result_goals->num_rows > 0): ?>
+                    <?php while($row = $result_goals->fetch_assoc()): ?>
+                        <div class="goal">
+                            <h3><?php echo htmlspecialchars($row['goal_title']); ?></h3>
+                            <p><?php echo htmlspecialchars($row['goal_description']); ?></p>
+                            <p>Цель: <?php echo $row['target_value']; ?></p>
+                            <div class="goal-progress">
+                                Прогресс: <?php echo $row['current_value']; ?> / <?php echo $row['target_value']; ?> (<?php echo round(($row['current_value'] / $row['target_value']) * 100); ?>%)
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>Нет целей.</p>
+                <?php endif; ?>
+            </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2024 Соревнования, Все права защищены</p>
-    </footer>
+    </div>
 
     <script>
         // Функция для переключения бокового меню
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('mainContent').classList.toggle('closed');
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+
+            sidebar.classList.toggle("open");
+            mainContent.classList.toggle("closed");
         }
     </script>
+
 </body>
 </html>
+
+<?php
+// Закрытие подключения
+$conn->close();
+?>
