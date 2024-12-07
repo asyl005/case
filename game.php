@@ -247,14 +247,14 @@ $futureCompetitions = [
         <p>&copy; 2024 Соревнования, Все права защищены</p>
     </footer>
 
-    <script>
+   <script>
         // Функция для переключения бокового меню
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");
             const mainContent = document.getElementById("mainContent");
 
             sidebar.classList.toggle("open");
-            mainContent.style.marginLeft = sidebar.classList.contains("open") ? "250px" : "0";
+            mainContent.classList.toggle("closed");
         }
     </script>
 
