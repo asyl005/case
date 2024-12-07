@@ -50,7 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <style>
-        /* Стили остаются без изменений */
+            .profile-image img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover; /* Чтобы изображение хорошо вписывалось в рамку */
+            border: 3px solid #ccc; /* Добавляем рамку вокруг изображения */
+            border-radius: 10px; /* Округляем углы */
+            margin-bottom: 20px;
+        }
+
     </style>
 </head>
 <body>
