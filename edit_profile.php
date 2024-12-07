@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="profile-image">
                 <img src="<?php echo $user['profile_picture'] ? $user['profile_picture'] : 'uploads/default.png'; ?>" alt="Profile Picture">
             </div>
-            <form method="POST" enctype="multipart/form-data" class="profile-form">
+            <form method="POST" enctype="multipart/form-data" action="profile.php" class="profile-form" >
                 <label for="new_username">Имя пользователя</label>
                 <input type="text" name="new_username" id="new_username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
 
@@ -190,32 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn-submit">Сохранить изменения</button>
             </form>
 
-            <script>
-    // Слушаем событие отправки формы
-                document.getElementById('profileForm').addEventListener('submit', function(e) {
-                    e.preventDefault();  // Отменяем стандартное поведение формы (отправку на сервер)
-        
-        // Отправка формы через AJAX (если нужно)
-                    var formData = new FormData(this);
-        
-        // Вы можете использовать fetch или XMLHttpRequest для отправки данных
-                    fetch('edit_profile.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                // После успешной отправки данных, редиректим на страницу профиля
-                            window.location.href = 'profile.php';
-                        } else {
-                            alert('Ошибка при сохранении данных');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Ошибка:', error);
-                    });
-                });
-</script>
         </div>
     </div>
 

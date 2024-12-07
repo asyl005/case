@@ -142,25 +142,54 @@
     </style>
 </head>
 <body>
-    <?php
-    // Подключение к базе данных
-    include 'db.php';
-    
-    // Получаем ID пользователя из сессии
-    session_start();
-    $user_id = $_SESSION['user_id']; // Это ID текущего пользователя
-    
-    // Получаем данные пользователя из базы данных
-    $query = "SELECT * FROM users WHERE id = $user_id";
-    $result = $conn->query($query);
-    $user = $result->fetch_assoc();
-    
-    // Если пользователь не найден, выводим ошибку
-    if (!$user) {
-        echo "Пользователь не найден.";
-        exit;
+<?php
+session_start();
+include 'db.php';
+
+// Get the user ID from session
+$user_id = $_SESSION['user_id']; // This is the current user's ID
+
+// Get user data from the database
+$query = "SELECT * FROM users WHERE id = $user_id";
+$result = $conn->query($query);
+$user = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $new_username = $_POST['new_username'];
+    $new_password = md5($_POST['new_password']);
+    $profile_picture = $_FILES['profile_picture'];
+
+    // Handle profile picture upload
+    if ($profile_picture['error'] === 0) {
+        $target_dir = "uploads/";
+        $filename = basename($profile_picture["name"]);
+        $filename = preg_replace("/[^a-zA-Z0-9.]/", "_", $filename); // Sanitize file name
+        $target_file = $target_dir . $filename;
+
+        if (move_uploaded_file($profile_picture["tmp_name"], $target_file)) {
+            $profile_picture_path = $target_file;
+        } else {
+            $profile_picture_path = 'uploads/default.png'; // Default image if upload failed
+        }
+    } else {
+        $profile_picture_path = $user['profile_picture']; // Retain current picture if new one isn't selected
     }
-    ?>
+
+    // Update user data
+    $update_user_query = "UPDATE users SET username = '$new_username', password = '$new_password' WHERE id = $user_id";
+    $conn->query($update_user_query);
+
+    // Update profile picture
+    $update_profile_query = "UPDATE users SET profile_picture = '$profile_picture_path' WHERE id = $user_id";
+    $conn->query($update_profile_query);
+
+    // Redirect to profile page after submission
+    header("Location: profile.php");
+    exit;
+}
+?>
+
+
 
     <div class="profile-container">
         <header>
