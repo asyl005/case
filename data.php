@@ -1,6 +1,16 @@
 <?php
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$dbname = 'gamification';
+
 // Подключение к базе данных
-include('db.php');
+$conn = new mysqli($host, $user, $password, $dbname);
+
+// Проверка подключения
+if ($conn->connect_error) {
+    die("Ошибка подключения: " . $conn->connect_error);
+}
 
 // Получаем все события
 $query_eventsdata = "SELECT * FROM eventsdata ORDER BY event_date ASC";
@@ -63,34 +73,11 @@ if (empty($eventsdata)) {
         }
 
         #calendar {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+            margin-top: 20px;
             background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .fc-event {
             border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
-        .fc-event-title {
-            font-size: 14px;
-        }
-
-        .fc-event-description {
-            display: none;
-        }
-
-        /* Hover effect for event description */
-        .fc-event:hover .fc-event-description {
-            display: block;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 5px;
-            border-radius: 3px;
-        }
-
     </style>
 </head>
 <body>
@@ -121,7 +108,6 @@ if (empty($eventsdata)) {
                             event.type === 'deadline' ? '#ffcc00' :
                             event.type === 'competition' ? '#4caf50' :
                             '#2196f3');  // Цвет для разных типов событий
-                element.append('<span class="fc-event-description">' + event.description + '</span>');
             }
         });
     });
