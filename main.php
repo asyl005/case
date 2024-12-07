@@ -92,7 +92,7 @@
                 <a href="#get-started">Get started!</a>
             </div>
         </div>
-        <img src="https://via.placeholder.com/400x300" alt="Gamified Learning Illustration">
+        <img src="logo.jpg" alt="Gamified Learning Illustration">
     </div>
 </body>
 </html>
