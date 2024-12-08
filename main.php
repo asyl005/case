@@ -77,19 +77,19 @@
     <header>
         <div class="logo">NSA</div>
         <nav>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="login.php">Log in</a>
-            <a href="register.php">Sign up</a>
+            <a href="about.php"Біз жайлы</a>
+            <a href="contact.php">Байланыс</a>
+            <a href="login.php">Кіру</a>
+            <a href="register.php">Тіркелу</a>
         </nav>
     </header>
 
     <div class="hero">
         <div class="content">
             <h1>Networked Student Access</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Студенттердің желілік қол жетімділігі-білім беру ресурстарына қол жеткізуді қамтамасыз ету жүйесі.</p>
             <div class="cta">
-                <a href="#get-started">Get started!</a>
+                <a href="#get-started">Бастау!</a>
             </div>
         </div>
         <img src="logo.jpg" alt="Gamified Learning Illustration">
