@@ -124,6 +124,7 @@
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s;
         }
 
         .section h2 {
@@ -153,80 +154,14 @@
         .open-btn:hover {
             background-color: #6f57a1;
         }
-    </style>
-</head>
-<body>
 
-    <!-- Боковое меню -->
-    <div class="sidebar" id="sidebar">
-        <div class="logo">NSA</div>
-        <ul class="menu">
-            <li class="active"><a href="#">🏠 Басты бет</a></li>
-            <li><a href="dost.php">🏆 Менің жетістіктерім</a></li>
-            <li><a href="reiting.php">📊 Рейтинг</a></li>
-            <li><a href="task.php">📚 Тапсырмалар</a></li>
-            <li><a href="game.php">🎮 Жарыстар</a></li>
-            <li><a href="obmen.php">🤝 Алмасу</a></li>
-            <li><a href="uslug.php">🛠️ Қызметтерді іздеу</a></li>
-            <li><a href="dosug.php">🎉 Бос уақыт</a></li>
-            <li><a href="sob.php">💬 Чат</a></li>
-            <li><a href="data.php">🗓 Календарь</a></li>
-            <li><a href="goals.php">🎯 Менің мақсаттарым</a></li>
-            <li><a href="profile.php">👤 Профиль</a></li>
-            <li><a href="user_settings.php">⚙️ Баптаулар</a></li>
-            <li><a href="logout2.php">Шығу</a></li>
-        </ul>
-        <div class="footer">
-            &copy; 2024 NSA
-        </div>
-    </div>
-
-    <!-- Основной контент -->
-    <div class="main-content closed" id="mainContent">
-        <div class="header">
-            <span class="icon" onclick="toggleSidebar()">☰</span>
-            <div class="text">Қош келдіңіз !</div>
-        </div>
-
-        <div class="section">
-            <h2>Менің жетістіктерім</h2>
-            <p>Сіздің жетістіктеріңіз әзірге бос.</p>
-        </div>
-    </div>
-
-    <script>
-        // Функция для переключения бокового меню
-        function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const mainContent = document.getElementById("mainContent");
-
-            sidebar.classList.toggle("open");
-            mainContent.classList.toggle("closed");
-        }
-    </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="kk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Статистика</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Стиль для контейнеров */
         .container {
             display: flex;
             justify-content: space-between;
+            gap: 20px;
             padding: 20px;
-            margin: 50px auto;
-            max-width: 1200px;
+            margin-top: 50px;
         }
 
         .card {
@@ -236,6 +171,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            transition: all 0.5s;
         }
 
         .card h3 {
@@ -273,20 +209,7 @@
             color: #555;
         }
 
-        .footer {
-            padding: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-        }
-
-        /* Стильдер для календаря */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Стиль для календаря */
         .calendar {
             width: 350px;
             padding: 20px;
@@ -337,42 +260,77 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- Белсенді қолданушылар туралы ақпарат -->
-        <div class="card">
-            <h3>Белсенді оқушылар туралы</h3>
-            <div class="pie-chart">
-                <div class="inner-text" style="color: #FF5733;">153 Оқушы</div>
-            </div>
-            <div class="details">
-                <p>Белсенді оқушылар: <span style="color: #FF5733;">147</span></p>
-                <p>Орташа қауіп-қатер факторлары: <span style="color: #FF5733;">1</span></p>
-                <p>Жоғары қауіп-қатер факторлары: <span style="color: #FF5733;">5</span></p>
-            </div>
+    <!-- Боковое меню -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">NSA</div>
+        <ul class="menu">
+            <li class="active"><a href="#">🏠 Басты бет</a></li>
+            <li><a href="dost.php">🏆 Менің жетістіктерім</a></li>
+            <li><a href="reiting.php">📊 Рейтинг</a></li>
+            <li><a href="task.php">📚 Тапсырмалар</a></li>
+            <li><a href="game.php">🎮 Жарыстар</a></li>
+            <li><a href="obmen.php">🤝 Алмасу</a></li>
+            <li><a href="uslug.php">🛠️ Қызметтерді іздеу</a></li>
+            <li><a href="dosug.php">🎉 Бос уақыт</a></li>
+            <li><a href="sob.php">💬 Чат</a></li>
+            <li><a href="data.php">🗓 Календарь</a></li>
+            <li><a href="goals.php">🎯 Менің мақсаттарым</a></li>
+            <li><a href="profile.php">👤 Профиль</a></li>
+            <li><a href="user_settings.php">⚙️ Баптаулар</a></li>
+            <li><a href="logout2.php">Шығу</a></li>
+        </ul>
+        <div class="footer">
+            &copy; 2024 NSA
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="main-content closed" id="mainContent">
+        <div class="header">
+            <span class="icon" onclick="toggleSidebar()">☰</span>
+            <div class="text">Қош келдіңіз !</div>
         </div>
 
-        <!-- Қолданушының уақытты пайдалану -->
-        <div class="card">
-            <h3>Оқушылардың уақытты пайдалану</h3>
-            <div class="pie-chart">
-                <div class="inner-text" style="color: #FF5733;">2540.7 Сағат</div>
-            </div>
-            <div class="details">
-                <p>Қоғамдық белсенділік: <span style="color: #FF5733;">1520.9</span></p>
-                <p>Тапсырмалар: <span style="color: #FF5733;">440.4</span></p>
-                <p>Сабақ материалдары: <span style="color: #FF5733;">350.6</span></p>
-            </div>
+        <div class="section">
+            <h2>Менің жетістіктерім</h2>
+            <p>Сіздің жетістіктеріңіз әзірге бос.</p>
         </div>
-
-        <!-- Календарьді қосу -->
-        <div class="calendar">
-            <div class="calendar-header">
-                <span id="prev-month" style="cursor: pointer;">&#10094;</span>
-                <h2 id="current-month"></h2>
-                <span id="next-month" style="cursor: pointer;">&#10095;</span>
+        
+        <!-- Контейнеры с данными -->
+        <div class="container">
+            <div class="card">
+                <h3>Белсенді оқушылар туралы</h3>
+                <div class="pie-chart">
+                    <div class="inner-text" style="color: #FF5733;">153 Оқушы</div>
+                </div>
+                <div class="details">
+                    <p>Белсенді оқушылар: <span style="color: #FF5733;">147</span></p>
+                    <p>Орташа қауіп-қатер факторлары: <span style="color: #FF5733;">1</span></p>
+                    <p>Жоғары қауіп-қатер факторлары: <span style="color: #FF5733;">5</span></p>
+                </div>
             </div>
-            <div class="calendar-days" id="calendar-days">
-                <!-- Күндер автоматты түрде толтырылады -->
+
+            <div class="card">
+                <h3>Оқушылардың уақытты пайдалану</h3>
+                <div class="pie-chart">
+                    <div class="inner-text" style="color: #FF5733;">2540.7 Сағат</div>
+                </div>
+                <div class="details">
+                    <p>Қоғамдық белсенділік: <span style="color: #FF5733;">1520.9</span></p>
+                    <p>Тапсырмалар: <span style="color: #FF5733;">440.4</span></p>
+                    <p>Сабақ материалдары: <span style="color: #FF5733;">350.6</span></p>
+                </div>
+            </div>
+
+            <div class="calendar">
+                <div class="calendar-header">
+                    <span id="prev-month" style="cursor: pointer;">&#10094;</span>
+                    <h2 id="current-month"></h2>
+                    <span id="next-month" style="cursor: pointer;">&#10095;</span>
+                </div>
+                <div class="calendar-days" id="calendar-days">
+                    <!-- Күндер автоматты түрде толтырылады -->
+                </div>
             </div>
         </div>
     </div>
@@ -382,9 +340,18 @@
     </div>
 
     <script>
-        const daysOfWeek = ["Дс", "Сс", "Ср", "Бс", "Жм", "Сб", "Жс"]; // Аптаның күндері өзгертілді
+        // Функция для переключения бокового меню
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+
+            sidebar.classList.toggle("open");
+            mainContent.classList.toggle("closed");
+        }
+
+        const daysOfWeek = ["Дс", "Сс", "Ср", "Бс", "Жм", "Сб", "Жс"];
         const months = ["Қаңтар", "Ақпан", "Наурыз", "Сәуір", "Мамыр", "Маусым", 
-                       "Шілде", "Тамыз", "Қыркүйек", "Қазан", "Қараша", "Желтоқсан"]; // Айлар
+                        "Шілде", "Тамыз", "Қыркүйек", "Қазан", "Қараша", "Желтоқсан"];
 
         let currentDate = new Date();
         let currentMonth = currentDate.getMonth();
@@ -445,9 +412,7 @@
             renderCalendar(currentMonth, currentYear);
         });
 
-        // Бірінші кезекте ағымдағы айды көрсету
         renderCalendar(currentMonth, currentYear);
     </script>
-
 </body>
 </html>
