@@ -263,3 +263,25 @@ $futureCompetitions = [
                     <div class="competition">
                         <h3><?= htmlspecialchars($competition['name']) ?></h3>
                         <p><?= htmlspecialchars($competition['date']) ?></p>
+                        <p><?= htmlspecialchars($competition['description']) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2024 Соревнования. Все права защищены.
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+
+            sidebar.classList.toggle("open");
+            mainContent.classList.toggle("closed");
+        }
+    </script>
+</body>
+</html>
