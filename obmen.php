@@ -84,7 +84,7 @@ if (!$items_result) {
         }
 
         .menu li a:hover {
-            background-color: #6f57a1;
+            background-color: #f4f5fa;
             color: #4c3b6e;
         }
 
