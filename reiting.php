@@ -25,7 +25,7 @@ foreach ($categories as $category) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рейтинги</title>
+    <title>Рейтинг</title>
     <style>
         /* Общие стили */
         * {
@@ -213,7 +213,7 @@ foreach ($categories as $category) {
             <li><a href="logout2.php">Шығу</a></li>
         </ul>
         <div class="footer">
-            &copy; 2024 StudyLife+
+            &copy; 2024 NSA
         </div>
     </div>
 
@@ -221,7 +221,7 @@ foreach ($categories as $category) {
     <div class="main-content closed" id="mainContent">
         <div class="header">
             <span class="icon" onclick="toggleSidebar()">☰</span>
-            <div>Рейтинги студентов</div>
+            <div>Рейтинг</div>
         </div>
 
         <?php foreach ($leaderboards as $category => $students): ?>

@@ -27,7 +27,7 @@ $result_goals = $conn->query($sql_goals);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои достижения</title>
+    <title>Менің жетістіктерім</title>
     <style>
         /* Общие стили */
         * {
