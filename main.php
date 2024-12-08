@@ -89,7 +89,7 @@
             <h1>Networked Student Access</h1>
             <p>Студенттердің желілік қол жетімділігі-білім беру ресурстарына қол жеткізуді қамтамасыз ету жүйесі.</p>
             <div class="cta">
-                <a href="#get-started">Бастау!</a>
+                <a href="login.php">Бастау!</a>
             </div>
         </div>
         <img src="logo.jpg" alt="Gamified Learning Illustration">
