@@ -147,66 +147,22 @@
         .open-btn:hover {
             background-color: #6f57a1;
         }
-    </style>
-</head>
-<body>
 
-    <!-- Боковое меню -->
-    <div class="sidebar" id="sidebar">
-        <div class="logo">NSA</div>
-        <ul class="menu">
-            <li class="active"><a href="#">🏠 Басты бет</a></li>
-            <li><a href="dost.php">🏆 Менің жетістіктерім</a></li>
-            <li><a href="reiting.php">📊 Рейтинг</a></li>
-            <li><a href="task.php">📚 Тапсырмалар</a></li>
-            <li><a href="game.php">🎮 Жарыстар</a></li>
-            <li><a href="obmen.php">🤝 Алмасу</a></li>
-            <li><a href="uslug.php">🛠️ Қызметтерді іздеу</a></li>
-            <li><a href="dosug.php">🎉 Бос уақыт</a></li>
-            <li><a href="sob.php">💬 Чат</a></li>
-            <li><a href="goals.php">🎯 Менің мақсаттарым</a></li>
-            <li><a href="profile.php">👤 Профиль</a></li>
-            <li><a href="user_settings.php">⚙️ Баптаулар</a></li>
-            <li><a href="logout2.php">Шығу</a></li>
-        </ul>
-        <div class="footer">
-            &copy; 2024 NSA
-        </div>
-    </div>
-
-    <!-- Основной контент -->
-    <div class="main-content closed" id="mainContent">
-        <div class="header">
-            <span class="icon" onclick="toggleSidebar()">☰</span>
-            <div class="text">Қош келдіңіз !</div>
-        </div>
-
-        <div class="section">
-            <h2>Менің жетістіктерім</h2>
-            <p>Сіздің жетістіктеріңіз әзірге бос.</p>
-        </div>
-    </div>
-
-    <script>
-        // Функция для переключения бокового меню
-        function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const mainContent = document.getElementById("mainContent");
-
-            sidebar.classList.toggle("open");
-            mainContent.classList.toggle("closed");
+        /* Новые окна внизу */
+        .bottom-windows {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
         }
-    </script>
 
-</body>
-</html> 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Календарь</title>
-    <style>
+        .window {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
         #calendar-days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -250,16 +206,74 @@
     </style>
 </head>
 <body>
-<div class="section">
-            <h4>Календарь</h4>
-            <div id="current-month"></div>
-            <button id="prev-month">◀</button>
-            <button id="next-month">▶</button>
-            <div id="calendar-days"></div>
+
+    <!-- Боковое меню -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">NSA</div>
+        <ul class="menu">
+            <li class="active"><a href="#">🏠 Басты бет</a></li>
+            <li><a href="dost.php">🏆 Менің жетістіктерім</a></li>
+            <li><a href="reiting.php">📊 Рейтинг</a></li>
+            <li><a href="task.php">📚 Тапсырмалар</a></li>
+            <li><a href="game.php">🎮 Жарыстар</a></li>
+            <li><a href="obmen.php">🤝 Алмасу</a></li>
+            <li><a href="uslug.php">🛠️ Қызметтерді іздеу</a></li>
+            <li><a href="dosug.php">🎉 Бос уақыт</a></li>
+            <li><a href="sob.php">💬 Чат</a></li>
+            <li><a href="goals.php">🎯 Менің мақсаттарым</a></li>
+            <li><a href="profile.php">👤 Профиль</a></li>
+            <li><a href="user_settings.php">⚙️ Баптаулар</a></li>
+            <li><a href="logout2.php">Шығу</a></li>
+        </ul>
+        <div class="footer">
+            &copy; 2024 NSA
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="main-content closed" id="mainContent">
+        <div class="header">
+            <span class="icon" onclick="toggleSidebar()">☰</span>
+            <div class="text">Қош келдіңіз !</div>
+        </div>
+
+        <div class="section">
+            <h2>Менің жетістіктерім</h2>
+            <p>Сіздің жетістіктеріңіз әзірге бос.</p>
+        </div>
+
+        <!-- Новые окна внизу -->
+        <div class="bottom-windows">
+            <div class="window">
+                <h4>Календарь</h4>
+                <div id="current-month"></div>
+                <button id="prev-month">◀</button>
+                <button id="next-month">▶</button>
+                <div id="calendar-days"></div>
+            </div>
+
+            <div class="window">
+                <h4>Задачи</h4>
+                <p>Здесь будут отображаться ваши текущие задачи.</p>
+            </div>
+
+            <div class="window">
+                <h4>Новости</h4>
+                <p>Самые последние новости и обновления для студентов.</p>
+            </div>
         </div>
     </div>
 
     <script>
+        // Функция для переключения бокового меню
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+
+            sidebar.classList.toggle("open");
+            mainContent.classList.toggle("closed");
+        }
+
         const daysOfWeek = ["Дс", "Сс", "Ср", "Бс", "Жм", "Сб", "Жс"];
         const months = ["Қаңтар", "Ақпан", "Наурыз", "Сәуір", "Мамыр", "Маусым", 
                         "Шілде", "Тамыз", "Қыркүйек", "Қазан", "Қараша", "Желтоқсан"];
@@ -329,4 +343,3 @@
 
 </body>
 </html>
-
