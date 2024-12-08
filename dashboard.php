@@ -201,3 +201,155 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            background-color: #f7f7f7;
+        }
+
+        .calendar {
+            width: 350px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header h2 {
+            font-size: 24px;
+            color: #4c3b6e;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-days div {
+            padding: 10px;
+            background-color: #f4f5fa;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .calendar-days div:hover {
+            background-color: #ddd;
+        }
+
+        .calendar-days div.active {
+            background-color: #4c3b6e;
+            color: white;
+        }
+
+        .calendar-days div.disabled {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calendar">
+        <div class="calendar-header">
+            <span id="prev-month" style="cursor: pointer;">&#10094;</span>
+            <h2 id="current-month"></h2>
+            <span id="next-month" style="cursor: pointer;">&#10095;</span>
+        </div>
+        <div class="calendar-days" id="calendar-days">
+            <!-- Күндер автоматты түрде PHP арқылы толтырылады -->
+        </div>
+    </div>
+
+    <script>
+        const daysOfWeek = ["Жс", "Дс", "Сс", "Ср", "Бс", "Жм", "Сб"]; // Аптаның күндері
+        const months = ["Қаңтар", "Ақпан", "Наурыз", "Сәуір", "Мамыр", "Маусым", 
+                       "Шілде", "Тамыз", "Қыркүйек", "Қазан", "Қараша", "Желтоқсан"]; // Айлар
+
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        // Ағымдағы айды көрсету
+        function renderCalendar(month, year) {
+            const firstDayOfMonth = new Date(year, month, 1);
+            const lastDayOfMonth = new Date(year, month + 1, 0);
+            const lastDateOfMonth = lastDayOfMonth.getDate();
+            const firstDayOfWeek = firstDayOfMonth.getDay();
+
+            // Күндер тақырыбы
+            document.getElementById('current-month').innerText = months[month] + " " + year;
+
+            const calendarDays = document.getElementById('calendar-days');
+            calendarDays.innerHTML = '';
+
+            // Аптаның күндерін көрсету
+            daysOfWeek.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.innerText = day;
+                calendarDays.appendChild(dayElement);
+            });
+
+            // Алғашқы бос орындарды қосу
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                const emptyCell = document.createElement('div');
+                calendarDays.appendChild(emptyCell);
+            }
+
+            // Айдың күндерін қосу
+            for (let i = 1; i <= lastDateOfMonth; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.innerText = i;
+                calendarDays.appendChild(dayElement);
+            }
+        }
+
+        // Айды өзгерту функциялары
+        document.getElementById('prev-month').addEventListener('click', () => {
+            if (currentMonth === 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else {
+                currentMonth--;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            if (currentMonth === 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else {
+                currentMonth++;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        // Бірінші кезекте ағымдағы айды көрсету
+        renderCalendar(currentMonth, currentYear);
+    </script>
+
+</body>
+</html>
