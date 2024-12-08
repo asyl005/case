@@ -39,14 +39,12 @@ if (!$items_result) {
             width: 250px;
             height: 100vh;
             background-color: #4c3b6e;
-            color: white;
-            position: fixed;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;                 
             top: 0;
             left: 0;
             transform: translateX(-250px);
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding-top: 20px;
+            color: white;
             opacity: 0;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
         }
@@ -93,11 +91,11 @@ if (!$items_result) {
         main {
             flex: 1;
             padding: 20px;
-            transition: margin-right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: margin-left: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         main.shifted {
-            margin-right: 300px;
+            margin-left: 300px;
         }
 
         /* Кнопка открытия меню */
