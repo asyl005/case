@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="login-section">
         <div class="login-form">
-            <h1>Log In</h1>
+            <h1>Кіру</h1>
             <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
             <form method="POST">
                 <input type="text" name="username" placeholder="Қолданушы есімі" required>
