@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,26 +12,23 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
             display: flex;
-            height: 100vh;
-            flex-direction: column;
+            background-color: #f7f7f7;
         }
 
         /* Боковое меню */
         .sidebar {
             width: 250px;
-            height: 100%;
+            height: 100vh;
             background-color: #ffffff;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             position: fixed;
-            top: 0;
-            left: -250px;
+            display: flex;
+            flex-direction: column;
             transform: translateX(-250px);
             opacity: 0;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
-            z-index: 1000;
         }
 
         .sidebar.open {
@@ -84,9 +81,6 @@
             text-align: center;
             font-size: 12px;
             color: #888;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
         }
 
         /* Основная часть страницы */
@@ -94,8 +88,8 @@
             margin-left: 250px;
             padding: 20px;
             width: calc(100% - 250px);
-            transition: margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             background-color: #f7f7f7;
+            transition: margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .main-content.closed {
@@ -124,7 +118,6 @@
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.5s;
         }
 
         .section h2 {
@@ -153,108 +146,6 @@
 
         .open-btn:hover {
             background-color: #6f57a1;
-        }
-
-        /* Стиль для контейнеров */
-        .container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        .card {
-            width: 45%;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: all 0.5s;
-        }
-
-        .card h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #4c3b6e;
-        }
-
-        .pie-chart {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            border-radius: 50%;
-            background: conic-gradient(
-                #4c3b6e 0% 95%, 
-                #f4f5fa 95% 100%
-            );
-        }
-
-        .pie-chart .inner-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-            font-weight: bold;
-            color: #4c3b6e;
-        }
-
-        .details {
-            text-align: left;
-            font-size: 14px;
-            margin-top: 20px;
-            color: #555;
-        }
-
-        /* Стиль для календаря */
-        .calendar {
-            width: 350px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .calendar-header h2 {
-            font-size: 24px;
-            color: #4c3b6e;
-        }
-
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            grid-gap: 5px;
-            text-align: center;
-        }
-
-        .calendar-days div {
-            padding: 10px;
-            background-color: #f4f5fa;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .calendar-days div:hover {
-            background-color: #ddd;
-        }
-
-        .calendar-days div.active {
-            background-color: #4c3b6e;
-            color: white;
-        }
-
-        .calendar-days div.disabled {
-            color: #ccc;
         }
     </style>
 </head>
@@ -295,48 +186,6 @@
             <h2>Менің жетістіктерім</h2>
             <p>Сіздің жетістіктеріңіз әзірге бос.</p>
         </div>
-        
-        <!-- Контейнеры с данными -->
-        <div class="container">
-            <div class="card">
-                <h3>Белсенді оқушылар туралы</h3>
-                <div class="pie-chart">
-                    <div class="inner-text" style="color: #FF5733;">153 Оқушы</div>
-                </div>
-                <div class="details">
-                    <p>Белсенді оқушылар: <span style="color: #FF5733;">147</span></p>
-                    <p>Орташа қауіп-қатер факторлары: <span style="color: #FF5733;">1</span></p>
-                    <p>Жоғары қауіп-қатер факторлары: <span style="color: #FF5733;">5</span></p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>Оқушылардың уақытты пайдалану</h3>
-                <div class="pie-chart">
-                    <div class="inner-text" style="color: #FF5733;">2540.7 Сағат</div>
-                </div>
-                <div class="details">
-                    <p>Қоғамдық белсенділік: <span style="color: #FF5733;">1520.9</span></p>
-                    <p>Тапсырмалар: <span style="color: #FF5733;">440.4</span></p>
-                    <p>Сабақ материалдары: <span style="color: #FF5733;">350.6</span></p>
-                </div>
-            </div>
-
-            <div class="calendar">
-                <div class="calendar-header">
-                    <span id="prev-month" style="cursor: pointer;">&#10094;</span>
-                    <h2 id="current-month"></h2>
-                    <span id="next-month" style="cursor: pointer;">&#10095;</span>
-                </div>
-                <div class="calendar-days" id="calendar-days">
-                    <!-- Күндер автоматты түрде толтырылады -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        &copy; 2024 NSA
     </div>
 
     <script>
@@ -348,7 +197,70 @@
             sidebar.classList.toggle("open");
             mainContent.classList.toggle("closed");
         }
+    </script>
 
+</body>
+</html> 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь</title>
+    <style>
+        #calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #calendar-days div {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #calendar-days div:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+
+        #calendar-days .empty {
+            background-color: #f7f7f7;
+        }
+
+        #current-month {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #4c3b6e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6f57a1;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+            <h4>Календарь</h4>
+            <div id="current-month"></div>
+            <button id="prev-month">◀</button>
+            <button id="next-month">▶</button>
+            <div id="calendar-days"></div>
+        </div>
+    </div>
+
+    <script>
         const daysOfWeek = ["Дс", "Сс", "Ср", "Бс", "Жм", "Сб", "Жс"];
         const months = ["Қаңтар", "Ақпан", "Наурыз", "Сәуір", "Мамыр", "Маусым", 
                         "Шілде", "Тамыз", "Қыркүйек", "Қазан", "Қараша", "Желтоқсан"];
@@ -380,6 +292,7 @@
             // Алғашқы бос орындарды қосу
             for (let i = 0; i < firstDayOfWeek; i++) {
                 const emptyCell = document.createElement('div');
+                emptyCell.classList.add('empty');
                 calendarDays.appendChild(emptyCell);
             }
 
@@ -414,5 +327,7 @@
 
         renderCalendar(currentMonth, currentYear);
     </script>
+
 </body>
 </html>
+
