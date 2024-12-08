@@ -33,7 +33,7 @@ $futureCompetitions = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Соревнования</title>
+    <title>Жарыстар</title>
     <style>
         /* Общие стили */
         * {
@@ -237,12 +237,12 @@ $futureCompetitions = [
     <div class="main-content closed" id="mainContent">
         <div class="header">
             <span class="icon" onclick="toggleSidebar()">☰</span>
-            <div>Соревнования</div>
+            <div>Жарыстар</div>
         </div>
 
         <!-- Текущие соревнования -->
         <section>
-            <h2>Текущие соревнования</h2>
+            <h2>Ағымдағы жарыстар</h2>
             <div class="competitions">
                 <?php foreach ($currentCompetitions as $competition): ?>
                     <div class="competition">
@@ -256,7 +256,7 @@ $futureCompetitions = [
 
         <!-- Будущие соревнования -->
         <section>
-            <h2>Будущие соревнования</h2>
+            <h2>Алдағы жарыстар</h2>
             <div class="competitions">
                 <?php foreach ($futureCompetitions as $competition): ?>
                     <div class="competition">
@@ -270,7 +270,7 @@ $futureCompetitions = [
     </div>
 
     <footer>
-        &copy; 2024 Соревнования. Все права защищены.
+        &copy; 2024 NSA. Все права защищены.
     </footer>
 
     <script>

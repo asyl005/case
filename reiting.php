@@ -226,7 +226,7 @@ foreach ($categories as $category) {
 
         <?php foreach ($leaderboards as $category => $students): ?>
             <div class="leaderboard">
-                <h2>Рейтинг за <?php echo ucfirst($category); ?></h2>
+                <h2><?php echo ucfirst($category); ?></h2>
                 <table>
                     <thead>
                         <tr>
