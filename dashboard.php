@@ -353,3 +353,114 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 50px auto;
+            max-width: 1200px;
+        }
+
+        .card {
+            width: 45%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4c3b6e;
+        }
+
+        .pie-chart {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: conic-gradient(
+                #4c3b6e 0% 95%, 
+                #f4f5fa 95% 100%
+            );
+        }
+
+        .pie-chart .inner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            font-weight: bold;
+            color: #4c3b6e;
+        }
+
+        .details {
+            text-align: left;
+            font-size: 14px;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Белсенді қолданушылар туралы ақпарат -->
+        <div class="card">
+            <h3>Active learner overview</h3>
+            <div class="pie-chart">
+                <div class="inner-text">153 Learners</div>
+            </div>
+            <div class="details">
+                <p>Active learners: 147</p>
+                <p>Medium risk-factor: 1</p>
+                <p>High risk-factor: 5</p>
+            </div>
+        </div>
+
+        <!-- Қолданушының уақытты пайдалану -->
+        <div class="card">
+            <h3>Learner usage</h3>
+            <div class="pie-chart">
+                <div class="inner-text">2540.7 Hours</div>
+            </div>
+            <div class="details">
+                <p>Community: 1520.9</p>
+                <p>Assignments: 440.4</p>
+                <p>Lesson materials: 350.6</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 NSA
+    </div>
+
+</body>
+</html>
+
