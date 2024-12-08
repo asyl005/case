@@ -78,7 +78,7 @@ if (!$items_result) {
             display: flex;
             align-items: center;
             padding: 15px 20px;
-            color: #333;
+            color: #fff;
             font-size: 16px;
             transition: all 0.3s;
         }
