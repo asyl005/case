@@ -29,25 +29,24 @@ $items_result = mysqli_query($conn, $query_items);
             flex-direction: column;
         }
 
-        /* Боковое меню */
+        /* Боковое меню (справа) */
         .sidebar {
-            width: 250px;
+            width: 300px;
             height: 100vh;
             background-color: #4c3b6e;
             color: white;
             position: fixed;
             top: 0;
-            left: -250px;
-            opacity: 0;
-            transform: translateX(-250px);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
+            right: -300px;
+            transform: translateX(300px);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
             padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar.open {
             transform: translateX(0);
-            opacity: 1;
         }
 
         .logo {
@@ -84,13 +83,12 @@ $items_result = mysqli_query($conn, $query_items);
         /* Основной контент */
         main {
             flex: 1;
-            margin-left: 250px;
             padding: 20px;
-            transition: margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: margin-right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        main.closed {
-            margin-left: 0;
+        main.shifted {
+            margin-right: 300px;
         }
 
         /* Кнопка открытия меню */
@@ -98,13 +96,13 @@ $items_result = mysqli_query($conn, $query_items);
             font-size: 28px;
             color: #fff;
             background-color: #4c3b6e;
-            padding: 15px;
+            padding: 10px;
             border: none;
             cursor: pointer;
             position: fixed;
             top: 20px;
-            left: 20px;
-            z-index: 1000;
+            right: 20px;
+            z-index: 1001;
         }
 
         .open-btn:hover {
@@ -148,20 +146,22 @@ $items_result = mysqli_query($conn, $query_items);
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out forwards;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.5s forwards;
         }
 
-        .item strong {
-            display: block;
-            font-size: 18px;
-            color: #4c3b6e;
-        }
+        .item:nth-child(1) { animation-delay: 0s; }
+        .item:nth-child(2) { animation-delay: 0.2s; }
+        .item:nth-child(3) { animation-delay: 0.4s; }
+        .item:nth-child(4) { animation-delay: 0.6s; }
+        .item:nth-child(5) { animation-delay: 0.8s; }
 
-        .item p {
-            color: #555;
-            margin-top: 5px;
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .add-item-btn {
@@ -176,34 +176,6 @@ $items_result = mysqli_query($conn, $query_items);
 
         .add-item-btn:hover {
             background-color: #6f57a1;
-        }
-
-        /* Анимация появления элементов */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .item:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .item:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .item:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .item:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .item:nth-child(5) {
-            animation-delay: 0.4s;
         }
     </style>
 </head>
@@ -269,7 +241,7 @@ $items_result = mysqli_query($conn, $query_items);
             const mainContent = document.getElementById("mainContent");
 
             sidebar.classList.toggle("open");
-            mainContent.classList.toggle("closed");
+            mainContent.classList.toggle("shifted");
         }
     </script>
 </body>
