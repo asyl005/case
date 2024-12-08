@@ -5,6 +5,11 @@ include('db.php');
 // Получаем все объявления о вещах
 $query_items = "SELECT * FROM exchange_items ORDER BY created_at DESC";
 $items_result = mysqli_query($conn, $query_items);
+
+// Проверка на ошибки в запросе
+if (!$items_result) {
+    die("Ошибка запроса: " . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +19,6 @@ $items_result = mysqli_query($conn, $query_items);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обмен вещами</title>
     <style>
-        /* Общие стили */
         * {
             margin: 0;
             padding: 0;
@@ -38,7 +42,6 @@ $items_result = mysqli_query($conn, $query_items);
             position: fixed;
             top: 0;
             right: -300px;
-            transform: translateX(300px);
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
             z-index: 1000;
