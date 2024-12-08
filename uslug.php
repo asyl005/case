@@ -89,6 +89,38 @@ $services_result = mysqli_query($conn, $query_services);
         }
     </style>
 </head>
+<!-- Боковое меню -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">NSA</div>
+        <ul class="menu">
+            <li class="active"><a href="#">🏠 Басты бет</a></li>
+            <li><a href="dost.php">🏆 Менің жетістіктерім</a></li>
+            <li><a href="reiting.php">📊 Рейтинг</a></li>
+            <li><a href="task.php">📚 Тапсырмалар</a></li>
+            <li><a href="game.php">🎮 Жарыстар</a></li>
+            <li><a href="obmen.php">🤝 Алмасу</a></li>
+            <li><a href="uslug.php">🛠️ Қызметтерді іздеу</a></li>
+            <li><a href="dosug.php">🎉 Бос уақыт</a></li>
+            <li><a href="sob.php">💬 Чат</a></li>
+            <li><a href="goals.php">🎯 Менің мақсаттарым</a></li>
+            <li><a href="profile.php">👤 Профиль</a></li>
+            <li><a href="user_settings.php">⚙️ Баптаулар</a></li>
+            <li><a href="logout2.php">Шығу</a></li>
+        </ul>
+    </div>
+ <!-- Основной контент -->
+    <main id="mainContent">
+        <button class="open-btn" onclick="toggleSidebar()">☰</button>
+   <script>
+        // Функция для переключения бокового меню
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+
+            sidebar.classList.toggle("open");
+            mainContent.classList.toggle("shifted");
+        }
+    </script>
 <body>
     <header>
         <h1>Поиск услуг</h1>
