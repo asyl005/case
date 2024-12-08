@@ -164,7 +164,6 @@
             <li><a href="uslug.php">🛠️ Қызметтерді іздеу</a></li>
             <li><a href="dosug.php">🎉 Бос уақыт</a></li>
             <li><a href="sob.php">💬 Чат</a></li>
-            <li><a href="data.php">🗓 Календарь</a></li>
             <li><a href="goals.php">🎯 Менің мақсаттарым</a></li>
             <li><a href="profile.php">👤 Профиль</a></li>
             <li><a href="user_settings.php">⚙️ Баптаулар</a></li>
