@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль пользователя</title>
+    <title>Қолданушы профильі</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="profile-container">
         <header>
-            <h1>Профиль пользователя</h1>
+            <h1>Қолданушы профильі</h1>
         </header>
 
         <div class="profile-header">
@@ -222,9 +222,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="profile-stats">
-            <p><strong>3K</strong> Following</p>
-            <p><strong>30.5M</strong> Followers</p>
-            <p><strong>90.6M</strong> Views</p>
+            <p><strong>300</strong> Балл</p>
+            <p><strong>45</strong> Достар</p>
+            <p><strong>Шебер</strong> Статус</p>
         </div>
 
         <div class="profile-about">
@@ -233,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="profile-actions">
-            <a href="edit_profile.php"><button class="view-btn">Редактировать профиль</button></a>
+            <a href="edit_profile.php"><button class="view-btn">Профильді өзгерту</button></a>
         </div>
     </div>
 
