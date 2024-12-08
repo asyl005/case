@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="profile-info">
                 <h1><?php echo htmlspecialchars($user['username']); ?></h1>
-                <p>Autrice - Compositrice & Interprète</p>
+                <p>Студент</p>
                 <div class="social-media">
                     <a href="#">Twitter</a>
                     <a href="#">Instagram</a>
@@ -228,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="profile-about">
-            <h2>О пользователе</h2>
+            <h2>Қолданушы Мәліметтері</h2>
             <p><?php echo htmlspecialchars($user['about']); ?></p>
         </div>
 
