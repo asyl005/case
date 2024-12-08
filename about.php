@@ -55,25 +55,26 @@
     <header>
         <div class="logo">NSA</div>
         <nav>
-            <a href="main.php">Home</a>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="login.php">Log in</a>
-            <a href="register.php">Sign up</a>
+            <a href="main.php">Басты бет</a>
+            <a href="about.php">Біз жайлы</a>
+            <a href="contact.php">Байланыс</a>
+            <a href="login.php">Кіру</a>
+            <a href="register.php">Тіркелу</a>
         </nav>
     </header>';
     
 
     <div class="about-section">
-        <h1>About Us</h1>
+        <h1>Біз жайлы</h1>
         <p>
-            Welcome to the **Gamified Learning System**! Our mission is to transform the way you learn by integrating 
-            engaging game mechanics into educational processes. Whether you're a student or a teacher, we aim to make 
-            the learning journey exciting, fun, and effective.
+            "Networked Student Access" – студенттердің оқу, әлеуметтік және жеке мақсаттарын оңай ұйымдастыруға арналған кешенді платформа. Біздің мақсатымыз – студенттердің өмірін жеңілдету, ынталандыру және оларды өз әлеуетін толық ашуға бағыттау.
         </p>
         <p>
-            By using our system, you can track your progress, compete with peers, and achieve new milestones while 
-            expanding your knowledge and skills. Join us on this innovative journey to make learning more enjoyable!
+            Мүмкіндіктер:
+Интерактивті интерфейс: Әр студентке ыңғайлы интерфейсті ұсынады.
+Әлеуметтік желімен интеграция: Ортақ қызығушылықтағы студенттерді байланыстырады.
+Мотивация және геймификация: Жетістіктер мен марапаттар арқылы студенттерді ынталандырады.
+Бұл қосымша студенттік өмірді ұйымдастыруды жеңілдетіп, оқу мен бос уақытты тиімді үйлестіруге мүмкіндік береді.
         </p>
     </div>
 </body>

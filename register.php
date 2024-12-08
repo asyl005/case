@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $error = "Пользователь с таким именем уже существует!";
+        $error = "Қолданушы есімі тіркелген!";
     } else {
         // Хэшируем пароль
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: login.php");
             exit();
         } else {
-            $error = "Ошибка регистрации! Попробуйте снова.";
+            $error = "Тіркелуде қате бар! Қайтадан көріңіз.";
         }
     }
 }
@@ -151,27 +151,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <div class="logo">NSA</div>
         <nav>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="login.php">Log in</a>
-            <a href="register.php">Sign up</a>
+            <a href="about.php">Біз жайлы</a>
+            <a href="contact.php">Байланыс</a>
+            <a href="login.php">Кіру</a>
+            <a href="register.php">Тіркелу</a>
         </nav>
     </header>
 
     <div class="register-section">
         <div class="register-form">
-            <h1>Регистрация</h1>
+            <h1>Тіркелу</h1>
             <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
             <form method="POST">
-                <input type="text" name="username" placeholder="Имя пользователя" required>
-                <input type="password" name="password" placeholder="Пароль" required>
+                <input type="text" name="username" placeholder="Қолданушы есімі" required>
+                <input type="password" name="password" placeholder="Құпия сөз" required>
                 <select name="role" required>
                     <option value="student">Студент</option>
-                    <option value="teacher">Учитель</option>
+                    <option value="teacher">Мұғалім</option>
                 </select>
-                <button type="button" onclick="window.location.href='login.php'">Зарегистрироваться</button>
+                <button type="button" onclick="window.location.href='login.php'">Тіркелу</button>
             </form>
-            <p>Уже есть аккаунт? <a href="login.php">Войти</a></p>
+            <p>Аккаунтыңыз бар ма? <a href="login.php">Кіру</a></p>
         </div>
     </div>
 </body>
