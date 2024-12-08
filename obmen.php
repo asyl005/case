@@ -75,11 +75,12 @@ if (!$items_result) {
 
         .menu li a {
             text-decoration: none;
-            display: block;
-            padding: 15px;
-            color: white;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #333;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
 
         .menu li a:hover {
