@@ -118,10 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <div class="logo">NSA</div>
         <nav>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="login.php">Log in</a>
-            <a href="register.php">Sign up</a>
+            <a href="about.php">Біз жайлы</a>
+            <a href="contact.php">Байланыс</a>
+            <a href="login.php">Кіру</a>
+            <a href="register.php">Тіркелу</a>
         </nav>
     </header>
 
@@ -130,11 +130,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Log In</h1>
             <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
             <form method="POST">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Log In</button>
+                <input type="text" name="username" placeholder="Қолданушы есімі" required>
+                <input type="password" name="password" placeholder="Құпия сөз" required>
+                <button type="submit">Кіру</button>
             </form>
-            <p>Don't have an account? <a href="register.php">Sign up</a></p>
+            <p>Аккаунтыңыз жоқ па? <a href="register.php">Тіркелу</a></p>
         </div>
     </div>
 </body>
