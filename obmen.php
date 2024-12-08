@@ -95,7 +95,7 @@ if (!$items_result) {
         }
 
         main.shifted {
-            margin-left: 300px;
+            margin-left: 250px;
         }
 
         /* Кнопка открытия меню */
@@ -108,7 +108,7 @@ if (!$items_result) {
             cursor: pointer;
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 20px;
             z-index: 1001;
         }
 
