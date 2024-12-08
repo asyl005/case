@@ -20,6 +20,7 @@ if (!$items_result) {
     <title>Обмен вещами</title>
     <style>
         * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -35,29 +36,33 @@ if (!$items_result) {
 
         /* Боковое меню (справа) */
         .sidebar {
-            width: 300px;
+            width: 250px;
             height: 100vh;
             background-color: #4c3b6e;
             color: white;
             position: fixed;
             top: 0;
-            right: -300px;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            left: 0;
+            transform: translateX(-250px);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             padding-top: 20px;
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
         }
 
         .sidebar.open {
             transform: translateX(0);
+            opacity: 1;
         }
 
         .logo {
             font-size: 22px;
             font-weight: bold;
-            color: white;
+            color: #4c3b6e;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .menu {
@@ -81,6 +86,7 @@ if (!$items_result) {
 
         .menu li a:hover {
             background-color: #6f57a1;
+            color: #4c3b6e;
         }
 
         /* Основной контент */
