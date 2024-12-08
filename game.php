@@ -54,16 +54,14 @@ $futureCompetitions = [
         .sidebar {
             width: 250px;
             height: 100vh;
-            background-color: #4c3b6e;
-            color: white;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
-            left: -250px;
-            opacity: 0;
+            left: 0;
             transform: translateX(-250px);
+            opacity: 0;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
-            padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar.open {
@@ -74,9 +72,10 @@ $futureCompetitions = [
         .logo {
             font-size: 22px;
             font-weight: bold;
-            color: white;
+            color: #4c3b6e;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .menu {
@@ -86,35 +85,114 @@ $futureCompetitions = [
         }
 
         .menu li {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f4f5fa;
         }
 
         .menu li a {
             text-decoration: none;
-            display: block;
-            padding: 15px;
-            color: white;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #333;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
 
         .menu li a:hover {
-            background-color: #6f57a1;
+            background-color: #f4f5fa;
+            color: #4c3b6e;
+        }
+
+        .menu li.active a {
+            background-color: #4c3b6e;
+            color: white;
         }
 
         /* Основной контент */
-        main {
-            flex: 1;
+        .main-content {
             margin-left: 250px;
             padding: 20px;
+            width: calc(100% - 250px);
+            background-color: #f7f7f7;
             transition: margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        main.closed {
+        .main-content.closed {
             margin-left: 0;
+            width: 100%;
         }
 
-        /* Кнопка открытия меню */
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4c3b6e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .icon {
+            font-size: 28px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #4c3b6e;
+            margin-bottom: 10px;
+        }
+
+        .competition {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .competition:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .competition h3 {
+            font-size: 18px;
+            color: #4c3b6e;
+            margin-bottom: 5px;
+        }
+
+        .competition p {
+            color: #555;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #4c3b6e;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Кнопка для открытия меню */
         .open-btn {
             font-size: 28px;
             color: #fff;
@@ -131,53 +209,10 @@ $futureCompetitions = [
         .open-btn:hover {
             background-color: #6f57a1;
         }
-
-        header {
-            background-color: #4c3b6e;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-            background-color: #4c3b6e;
-            color: white;
-            padding: 10px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #4c3b6e;
-            margin-bottom: 10px;
-        }
-
-        li strong {
-            display: block;
-            font-size: 18px;
-            color: #4c3b6e;
-        }
-
-        li p {
-            margin-top: 5px;
-            color: #555;
-        }
     </style>
 </head>
 <body>
+
     <!-- Боковое меню -->
     <div class="sidebar" id="sidebar">
         <div class="logo">NSA</div>
@@ -187,56 +222,44 @@ $futureCompetitions = [
             <li><a href="reiting.php">📊 Рейтинги</a></li>
             <li><a href="task.php">📚 Задания</a></li>
             <li><a href="game.php">🎮 Соревнования</a></li>
+            <li><a href="obmen.php">🤝 Обмен вещами</a></li>
+            <li><a href="uslug.php">🛠️ Поиск услуг</a></li>
+            <li><a href="dosug.php">🎉 Досуг</a></li>
+            <li><a href="sob.php">💬 Сообщество</a></li>
+            <li><a href="data.php">🗓 Календарь</a></li>
+            <li><a href="goals.php">🎯 Мои цели</a></li>
+            <li><a href="profile.php">👤 Профиль</a></li>
+            <li><a href="user_settings.php">⚙️ Настройки</a></li>
+            <li><a href="logout2.php">Шығу</a></li>
         </ul>
     </div>
 
     <!-- Основной контент -->
-    <main id="mainContent">
-        <header>
-            <button class="open-btn" onclick="toggleSidebar()">☰</button>
-            <h1>Соревнования</h1>
-        </header>
+    <div class="main-content closed" id="mainContent">
+        <div class="header">
+            <span class="icon" onclick="toggleSidebar()">☰</span>
+            <div>Соревнования</div>
+        </div>
 
         <!-- Текущие соревнования -->
         <section>
             <h2>Текущие соревнования</h2>
-            <ul>
+            <div class="competitions">
                 <?php foreach ($currentCompetitions as $competition): ?>
-                    <li>
-                        <strong><?= htmlspecialchars($competition['name']) ?></strong> - <?= htmlspecialchars($competition['date']) ?>
+                    <div class="competition">
+                        <h3><?= htmlspecialchars($competition['name']) ?></h3>
+                        <p><?= htmlspecialchars($competition['date']) ?></p>
                         <p><?= htmlspecialchars($competition['description']) ?></p>
-                    </li>
+                    </div>
                 <?php endforeach; ?>
-            </ul>
+            </div>
         </section>
 
         <!-- Будущие соревнования -->
         <section>
             <h2>Будущие соревнования</h2>
-            <ul>
+            <div class="competitions">
                 <?php foreach ($futureCompetitions as $competition): ?>
-                    <li>
-                        <strong><?= htmlspecialchars($competition['name']) ?></strong> - <?= htmlspecialchars($competition['date']) ?>
-                        <p><?= htmlspecialchars($competition['description']) ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Соревнования, Все права защищены</p>
-    </footer>
-
-    <script>
-        // Функция для переключения бокового меню
-        function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const mainContent = document.getElementById("mainContent");
-
-            sidebar.classList.toggle("open");
-            mainContent.classList.toggle("closed");
-        }
-    </script>
-</body>
-</html>
+                    <div class="competition">
+                        <h3><?= htmlspecialchars($competition['name']) ?></h3>
+                        <p><?= htmlspecialchars($competition['date']) ?></p>
