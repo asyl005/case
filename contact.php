@@ -100,9 +100,9 @@
 
         <div class="contact-form">
             <form action="send_message.php" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <input type="text" name="name" placeholder="Есіміңіз" required>
+                <input type="email" name="email" placeholder="Почта" required>
+                <textarea name="message" rows="5" placeholder="Хабарлама" required></textarea>
                 <button type="submit">Жіберу</button>
             </form>
         </div>
