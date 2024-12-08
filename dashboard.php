@@ -155,23 +155,23 @@
     <div class="sidebar" id="sidebar">
         <div class="logo">NSA</div>
         <ul class="menu">
-            <li class="active"><a href="#">🏠 Главная</a></li>
-            <li><a href="dost.php">🏆 Мои достижения</a></li>
-            <li><a href="reiting.php">📊 Рейтинги</a></li>
-            <li><a href="task.php">📚 Задания</a></li>
-            <li><a href="game.php">🎮 Соревнования</a></li>
-            <li><a href="obmen.php">🤝 Обмен вещами</a></li>
-            <li><a href="uslug.php">🛠️ Поиск услуг</a></li>
-            <li><a href="dosug.php">🎉 Досуг</a></li>
-            <li><a href="sob.php">💬 Сообщество</a></li>
+            <li class="active"><a href="#">🏠 Басты бет</a></li>
+            <li><a href="dost.php">🏆 Менің жетістіктерім</a></li>
+            <li><a href="reiting.php">📊 Рейтинг</a></li>
+            <li><a href="task.php">📚 Тапсырмалар</a></li>
+            <li><a href="game.php">🎮 Жарыстар</a></li>
+            <li><a href="obmen.php">🤝 Алмасу</a></li>
+            <li><a href="uslug.php">🛠️ Қызметтерді іздеу</a></li>
+            <li><a href="dosug.php">🎉 Бос уақыт</a></li>
+            <li><a href="sob.php">💬 Чат</a></li>
             <li><a href="data.php">🗓 Календарь</a></li>
-            <li><a href="goals.php">🎯 Мои цели</a></li>
+            <li><a href="goals.php">🎯 Менің мақсаттарым</a></li>
             <li><a href="profile.php">👤 Профиль</a></li>
-            <li><a href="user_settings.php">⚙️ Настройки</a></li>
+            <li><a href="user_settings.php">⚙️ Баптаулар</a></li>
             <li><a href="logout2.php">Шығу</a></li>
         </ul>
         <div class="footer">
-            &copy; 2024 StudyLife+
+            &copy; 2024 NSA
         </div>
     </div>
 
@@ -179,12 +179,12 @@
     <div class="main-content closed" id="mainContent">
         <div class="header">
             <span class="icon" onclick="toggleSidebar()">☰</span>
-            <div class="text">Добро пожаловать в NSA !</div>
+            <div class="text">Қош келдіңіз !</div>
         </div>
 
         <div class="section">
-            <h2>Мои достижения</h2>
-            <p>Здесь будут отображаться ваши достижения, значки и трофеи.</p>
+            <h2>Менің жетістіктерім</h2>
+            <p>Сіздің жетістіктеріңіз әзірге бос.</p>
         </div>
     </div>
 
