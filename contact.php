@@ -85,17 +85,17 @@
     <header>
         <div class="logo">NSA</div>
         <nav>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="login.php">Log in</a>
-            <a href="register.php">Sign up</a>
+            <a href="about.php">Біз жайлы</a>
+            <a href="contact.php">Байланыс</a>
+            <a href="login.php">Кіру</a>
+            <a href="register.php">Тіркелу</a>
         </nav>
     </header>
 
     <div class="contact-section">
-        <h1>Contact Us</h1>
+        <h1>Байланыс</h1>
         <p>
-            Have questions or feedback? Reach out to us! We'd love to hear from you and will get back to you as soon as possible.
+            Сұрақтарыңыз немесе пікірлеріңіз бар ма? Бізге хабарласыңыз! Біз сіздің пікіріңізді тыңдағымыз келеді және мүмкіндігінше тезірек сізбен байланысқа шығатын боламыз.
         </p>
 
         <div class="contact-form">
@@ -103,7 +103,7 @@
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
+                <button type="submit">Жіберу</button>
             </form>
         </div>
     </div>

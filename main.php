@@ -77,7 +77,7 @@
     <header>
         <div class="logo">NSA</div>
         <nav>
-            <a href="about.php"Біз жайлы</a>
+            <a href="about.php">Біз жайлы</a>
             <a href="contact.php">Байланыс</a>
             <a href="login.php">Кіру</a>
             <a href="register.php">Тіркелу</a>
